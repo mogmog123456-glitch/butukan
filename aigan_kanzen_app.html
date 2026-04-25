@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>愛玩動物看護師 過去問対策</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html{font-size:16px;}
+body{
+  font-family:'Noto Sans JP',sans-serif;
+  background:#f5f3ef;
+  color:#222;
+  min-height:100dvh;
+  overscroll-behavior:none;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;outline:none;}
+button:active{opacity:.75;}
+
+:root{
+  --sage:#3d6b4f;
+  --sage-l:#ebf3ee;
+  --sage-m:#c5dece;
+  --navy:#2b4a82;
+  --navy-l:#eaeff8;
+  --navy-m:#bed0f0;
+  --coral:#c4553a;
+  --coral-l:#faecea;
+  --gold:#9a6e14;
+  --gold-l:#fdf3dc;
+  --gold-m:#f0d890;
+  --ink:#222;
+  --ink2:#555;
+  --ink3:#999;
+  --surface:#fff;
+  --bg:#f5f3ef;
+  --bg2:#ece9e3;
+  --line:#e0ddd7;
+  --r:14px;
+  --r2:20px;
+  --sh:0 2px 12px rgba(0,0,0,.07);
+  --sh2:0 6px 24px rgba(0,0,0,.11);
+}
+
+/* ── HEADER ── */
+.hdr{
+  position:sticky;top:0;z-index:300;
+  background:var(--surface);
+  border-bottom:1px solid var(--line);
+  padding:12px 16px;
+  padding-top:calc(12px + env(safe-area-inset-top));
+  display:flex;align-items:center;gap:10px;
+}
+#back-btn{
+  font-size:13px;color:var(--sage);
+  padding:6px 11px;
+  border-radius:99px;
+  background:var(--sage-l);
+  display:none;white-space:nowrap;
+  font-weight:500;
+}
+.hdr-info{flex:1;overflow:hidden;}
+.hdr-title{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hdr-sub{font-size:11px;color:var(--ink3);margin-top:1px;}
+
+/* ── SCREENS ── */
+.screen{display:none;padding:16px;padding-bottom:calc(76px + env(safe-area-inset-bottom));min-height:100dvh;}
+.screen.on{display:block;}
+.inner{max-width:540px;margin:0 auto;}
+
+/* ── HOME HERO ── */
+.hero{
+  background:linear-gradient(145deg,#2d5c42 0%,#1e3d5c 100%);
+  border-radius:var(--r2);
+  padding:22px 20px 20px;
+  color:#fff;
+  margin-bottom:20px;
+  position:relative;overflow:hidden;
+}
+.hero::after{
+  content:'';position:absolute;
+  right:-30px;bottom:-40px;
+  width:160px;height:160px;
+  border-radius:50%;
+  background:rgba(255,255,255,.05);
+}
+.hero-eyebrow{font-size:10px;letter-spacing:.14em;opacity:.55;margin-bottom:8px;font-weight:500;}
+.hero-title{font-size:19px;font-weight:700;line-height:1.45;margin-bottom:12px;}
+.hero-desc{font-size:12px;opacity:.65;line-height:1.7;margin-bottom:16px;}
+.hero-chips{display:flex;gap:8px;flex-wrap:wrap;}
+.hero-chip{
+  background:rgba(255,255,255,.14);
+  border-radius:99px;
+  padding:5px 12px;
+  font-size:11px;font-weight:500;
+}
+.hero-chip span{font-weight:700;font-size:14px;margin-right:3px;}
+
+/* ── SECTION LABEL ── */
+.sec-label{
+  font-size:11px;font-weight:700;letter-spacing:.1em;
+  color:var(--ink3);
+  margin:20px 0 10px;
+  text-transform:uppercase;
+}
+
+/* ── CAT TABS ── */
+.cat-tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px;}
+.cat-tab{
+  border-radius:var(--r);
+  padding:13px 12px;
+  text-align:center;
+  border:2px solid var(--line);
+  background:var(--surface);
+  transition:all .15s;
+}
+.cat-tab .ct-name{font-size:14px;font-weight:700;margin-bottom:2px;}
+.cat-tab .ct-sub{font-size:11px;color:var(--ink3);}
+.cat-tab.on.yobi{border-color:var(--sage);background:var(--sage-l);color:var(--sage);}
+.cat-tab.on.kokka{border-color:var(--navy);background:var(--navy-l);color:var(--navy);}
+.cat-tab.on .ct-sub{opacity:.7;}
+
+/* ── MODE CARDS ── */
+.mode-stack{display:flex;flex-direction:column;gap:10px;}
+.mode-card{
+  background:var(--surface);
+  border-radius:var(--r2);
+  padding:16px 18px;
+  display:flex;align-items:center;gap:14px;
+  box-shadow:var(--sh);
+  border:1px solid var(--line);
+  text-align:left;
+  width:100%;
+  transition:box-shadow .15s,transform .1s;
+}
+.mode-card:active{box-shadow:none;transform:scale(.99);}
+.mc-pill{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:19px;
+}
+.mc-pill.g{background:var(--sage-l);}
+.mc-pill.b{background:var(--navy-l);}
+.mc-pill.o{background:var(--gold-l);}
+.mc-pill.r{background:var(--coral-l);}
+.mc-pill svg{width:21px;height:21px;}
+.mc-text{flex:1;}
+.mc-name{font-size:14px;font-weight:700;margin-bottom:3px;}
+.mc-desc{font-size:11.5px;color:var(--ink2);line-height:1.55;}
+.mc-badge{
+  font-size:10px;font-weight:700;
+  background:var(--coral-l);color:var(--coral);
+  border-radius:99px;padding:2px 7px;margin-left:6px;
+}
+.mc-arr{color:var(--ink3);font-size:18px;line-height:1;}
+
+/* ── HISTORY ── */
+.hist-list{display:flex;flex-direction:column;gap:8px;}
+.hist-row{
+  background:var(--surface);
+  border-radius:var(--r);
+  border:1px solid var(--line);
+  padding:12px 14px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.hr-name{font-size:13px;font-weight:500;}
+.hr-date{font-size:11px;color:var(--ink3);margin-top:2px;}
+.hr-pct{font-size:17px;font-weight:700;}
+.hr-pct.pass{color:var(--sage);}
+.hr-pct.mid{color:var(--gold);}
+.hr-pct.fail{color:var(--coral);}
+
+/* ── EXAM LIST ── */
+.exam-list{display:flex;flex-direction:column;gap:8px;}
+.exam-row{
+  background:var(--surface);
+  border-radius:var(--r);
+  border:1.5px solid var(--line);
+  padding:13px 15px;
+  display:flex;align-items:center;gap:11px;
+  box-shadow:0 1px 6px rgba(0,0,0,.04);
+  text-align:left;width:100%;
+  transition:border-color .12s;
+}
+.exam-row:active{border-color:var(--ink3);}
+.edot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.edot.yobi{background:var(--sage);}
+.edot.kokka{background:var(--navy);}
+.er-info{flex:1;}
+.er-name{font-size:13px;font-weight:600;}
+.er-date{font-size:11px;color:var(--ink3);margin-top:2px;}
+.badge{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;white-space:nowrap;}
+.badge.good{background:var(--sage-l);color:var(--sage);}
+.badge.mid{background:var(--gold-l);color:var(--gold);}
+.badge.bad{background:var(--coral-l);color:var(--coral);}
+.badge.none{background:var(--bg2);color:var(--ink3);}
+
+/* ── FILTER / SELECT ── */
+.ftags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:12px;}
+.ftag{
+  padding:7px 14px;border-radius:99px;
+  border:1.5px solid var(--line);
+  background:var(--surface);
+  font-size:12px;font-weight:500;color:var(--ink2);
+  transition:all .12s;
+}
+.ftag.on{background:var(--ink);color:#fff;border-color:var(--ink);}
+.sel-label{font-size:12px;font-weight:500;color:var(--ink2);margin-bottom:8px;margin-top:16px;}
+
+.chk-row{
+  display:flex;align-items:center;gap:10px;
+  padding:13px 14px;
+  background:var(--surface);
+  border-radius:var(--r);
+  border:1px solid var(--line);
+  cursor:pointer;
+}
+.chk-row input[type=checkbox]{width:18px;height:18px;accent-color:var(--sage);cursor:pointer;}
+.chk-row span{font-size:13px;color:var(--ink2);}
+
+/* ── Q HEADER ── */
+.q-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.prog-wrap{flex:1;height:5px;background:var(--bg2);border-radius:99px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:99px;transition:width .35s ease;}
+.prog-fill.g{background:var(--sage);}
+.prog-fill.b{background:var(--navy);}
+.prog-fill.o{background:var(--gold);}
+.q-cnt{font-size:11px;color:var(--ink3);white-space:nowrap;}
+.timer{font-size:13px;font-weight:700;color:var(--gold);white-space:nowrap;}
+.timer.urgent{color:var(--coral);}
+
+/* ── STAT ROW ── */
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px;}
+.stat-card{
+  background:var(--surface);
+  border-radius:var(--r);
+  border:1px solid var(--line);
+  padding:10px 8px;text-align:center;
+}
+.stat-card .sv{font-size:20px;font-weight:700;}
+.stat-card .sl{font-size:10px;color:var(--ink3);margin-top:2px;}
+.s-ok .sv{color:var(--sage);}
+.s-ng .sv{color:var(--coral);}
+
+/* ── QUESTION CARD ── */
+.q-card{
+  background:var(--surface);
+  border-radius:var(--r2);
+  border:1px solid var(--line);
+  padding:18px 16px;
+  margin-bottom:12px;
+  box-shadow:var(--sh);
+}
+.q-tag{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:600;
+  padding:4px 10px;border-radius:99px;
+  margin-bottom:12px;
+}
+.q-tag.yobi{background:var(--sage-l);color:var(--sage);}
+.q-tag.kokka{background:var(--navy-l);color:var(--navy);}
+.q-tag.rand{background:var(--gold-l);color:var(--gold);}
+.q-text{font-size:14px;font-weight:600;line-height:1.9;white-space:pre-wrap;color:var(--ink);}
+
+/* ── OPTIONS ── */
+.opts{display:flex;flex-direction:column;gap:8px;margin-top:14px;}
+.opt{
+  background:var(--bg);
+  border:1.5px solid var(--line);
+  border-radius:11px;
+  padding:12px 14px;
+  font-size:13px;color:var(--ink);
+  text-align:left;line-height:1.55;
+  transition:background .1s,border-color .1s;
+}
+.opt:not(:disabled):active{background:var(--bg2);border-color:var(--ink3);}
+.opt.correct{background:var(--sage-l);border-color:var(--sage);color:var(--sage);font-weight:700;}
+.opt.wrong{background:var(--coral-l);border-color:var(--coral);color:var(--coral);}
+.opt:disabled{cursor:default;}
+
+/* ── EXPLANATION ── */
+.exp-box{
+  margin-top:14px;
+  padding:13px 15px;
+  background:var(--gold-l);
+  border-radius:11px;
+  font-size:12px;color:var(--ink2);line-height:1.8;
+  animation:slideUp .22s ease;
+}
+.exp-label{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.08em;margin-bottom:5px;display:block;}
+@keyframes slideUp{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* ── BUTTONS ── */
+.act-row{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;}
+.btn{
+  padding:11px 18px;border-radius:11px;
+  border:1.5px solid var(--line);background:var(--surface);
+  font-size:13px;font-weight:500;color:var(--ink);
+  transition:background .12s;
+}
+.btn:active{background:var(--bg2);}
+.btn:disabled{opacity:.3;cursor:not-allowed;}
+.btn.pg{background:var(--sage);color:#fff;border-color:var(--sage);}
+.btn.pb{background:var(--navy);color:#fff;border-color:var(--navy);}
+.btn.po{background:var(--gold);color:#fff;border-color:var(--gold);}
+.btn.full{width:100%;text-align:center;padding:14px;}
+
+/* ── RESULT ── */
+.result-hero{
+  border-radius:var(--r2);
+  padding:28px 20px 24px;
+  text-align:center;
+  margin-bottom:14px;
+  background:linear-gradient(145deg,#2d5c42 0%,#1e3d5c 100%);
+  color:#fff;
+  position:relative;overflow:hidden;
+}
+.result-hero::after{content:'';position:absolute;right:-40px;bottom:-50px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.05);}
+.r-label{font-size:10px;letter-spacing:.15em;opacity:.5;margin-bottom:10px;}
+.r-pct{font-size:64px;font-weight:700;line-height:1;}
+.r-pct.pass{color:#7fe87f;}
+.r-pct.fail{color:#f09090;}
+.r-verdict{font-size:15px;font-weight:700;margin:8px 0 4px;}
+.r-detail{font-size:12px;opacity:.65;}
+.rb-list{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:14px;}
+.rb-row{display:flex;align-items:flex-start;padding:9px 13px;border-bottom:.5px solid var(--bg2);font-size:12px;gap:8px;}
+.rb-row:last-child{border-bottom:none;}
+.rb-q{flex:1;color:var(--ink2);line-height:1.5;}
+.rb-mark{font-weight:700;font-size:12px;white-space:nowrap;}
+.rb-mark.ok{color:var(--sage);}
+.rb-mark.ng{color:var(--coral);}
+
+/* ── FLASH ── */
+.fl-perspective{perspective:1000px;margin-bottom:12px;cursor:pointer;}
+.fl-inner{position:relative;transition:transform .4s cubic-bezier(.4,0,.2,1);transform-style:preserve-3d;}
+.fl-inner.flip{transform:rotateY(180deg);}
+.fl-face{
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r2);
+  padding:26px 18px;min-height:190px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;box-shadow:var(--sh);
+}
+.fl-face.back{position:absolute;top:0;left:0;right:0;transform:rotateY(180deg);background:#f0f7f3;}
+.fl-q-text{font-size:14px;font-weight:600;line-height:1.85;white-space:pre-wrap;color:var(--ink);}
+.fl-hint{font-size:11px;color:var(--ink3);margin-top:12px;}
+.fl-ans{font-size:16px;font-weight:700;color:var(--sage);margin-bottom:8px;}
+.fl-exp{font-size:12px;color:var(--ink2);line-height:1.7;}
+.fl-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;}
+.fl-pos{font-size:12px;color:var(--ink3);min-width:110px;text-align:center;}
+.fl-marks{display:flex;gap:8px;justify-content:center;}
+.btn.mk{background:var(--sage-l);color:var(--sage);border-color:var(--sage-m);}
+.btn.mb{background:var(--coral-l);color:var(--coral);border-color:#e8b4a8;}
+
+/* ── WEAK BANNER ── */
+.weak-info{
+  background:var(--gold-l);border:1px solid var(--gold-m);
+  border-radius:var(--r);padding:10px 14px;
+  font-size:12px;color:var(--gold);margin:10px 0;line-height:1.6;
+}
+
+/* ── RANDOM MODE SCREEN ── */
+.rand-card{
+  background:var(--surface);
+  border-radius:var(--r2);
+  border:2px solid var(--gold-m);
+  padding:20px 18px;
+  margin-bottom:12px;
+  box-shadow:var(--sh);
+}
+.rand-card h3{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:6px;}
+.rand-card p{font-size:12px;color:var(--ink2);line-height:1.65;}
+
+/* ── EMPTY ── */
+.empty{text-align:center;padding:32px;color:var(--ink3);font-size:13px;line-height:1.7;}
+
+/* ── BOTTOM NAV ── */
+.bnav{
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--surface);border-top:1px solid var(--line);
+  display:flex;z-index:200;
+  padding-bottom:env(safe-area-inset-bottom);
+}
+.bn{
+  flex:1;padding:10px 4px 8px;
+  display:flex;flex-direction:column;align-items:center;gap:3px;
+  color:var(--ink3);transition:color .12s;
+}
+.bn svg{width:22px;height:22px;}
+.bn span{font-size:10px;font-weight:500;}
+.bn.on{color:var(--sage);}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="hdr">
+  <button id="back-btn" onclick="goBack()">← 戻る</button>
+  <div class="hdr-info">
+    <div class="hdr-title" id="hdr-title">愛玩動物看護師 過去問対策</div>
+    <div class="hdr-sub" id="hdr-sub"></div>
+  </div>
+</div>
+
+<!-- ========== HOME ========== -->
+<div class="screen on" id="s-home">
+<div class="inner">
+  <div class="hero">
+    <div class="hero-eyebrow">Veterinary Nursing Exam Prep</div>
+    <div class="hero-title">愛玩動物看護師<br>国家試験・予備試験<br>完全対策</div>
+    <div class="hero-desc">公式過去問 予備試験4回＋国家試験4回を完全収録。<br>間違えた問題を自動記録し、弱点を徹底サポート。</div>
+    <div class="hero-chips">
+      <div class="hero-chip"><span>400</span>問収録</div>
+      <div class="hero-chip"><span id="h-mastered">0</span>習得済み</div>
+      <div class="hero-chip"><span id="h-weak">0</span>要復習</div>
+    </div>
+  </div>
+
+  <div class="sec-label">試験種別</div>
+  <div class="cat-tabs">
+    <div class="cat-tab yobi on" id="ctab-y" onclick="selectCat('yobi')">
+      <div class="ct-name">予備試験</div>
+      <div class="ct-sub">第1〜4回</div>
+    </div>
+    <div class="cat-tab kokka" id="ctab-k" onclick="selectCat('kokka')">
+      <div class="ct-name">国家試験</div>
+      <div class="ct-sub">第1〜4回</div>
+    </div>
+  </div>
+
+  <div class="sec-label">学習モード</div>
+  <div class="mode-stack">
+
+    <button class="mode-card" onclick="goTo('s-rsel')">
+      <div class="mc-pill o">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+      </div>
+      <div class="mc-text">
+        <div class="mc-name">ランダム出題<span class="mc-badge">NEW</span></div>
+        <div class="mc-desc">全問からシャッフル。隙間時間の学習に最適。</div>
+      </div>
+      <div class="mc-arr">›</div>
+    </button>
+
+    <button class="mode-card" onclick="goTo('s-qsel')">
+      <div class="mc-pill g">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--sage)" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6M9 16h4"/></svg>
+      </div>
+      <div class="mc-text">
+        <div class="mc-name">一問一答</div>
+        <div class="mc-desc">回・問題数を絞って出題。解説を即確認。</div>
+      </div>
+      <div class="mc-arr">›</div>
+    </button>
+
+    <button class="mode-card" onclick="goTo('s-esel')">
+      <div class="mc-pill b">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      </div>
+      <div class="mc-text">
+        <div class="mc-name">模擬試験</div>
+        <div class="mc-desc">50問・50分の本番形式。終了後に全問解説。</div>
+      </div>
+      <div class="mc-arr">›</div>
+    </button>
+
+    <button class="mode-card" onclick="goTo('s-fsel')">
+      <div class="mc-pill r">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--coral)" stroke-width="2"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20M8 6V4M16 6V4"/></svg>
+      </div>
+      <div class="mc-text">
+        <div class="mc-name">フラッシュカード</div>
+        <div class="mc-desc">カードをめくって答え確認。覚えた問題を仕分け。</div>
+      </div>
+      <div class="mc-arr">›</div>
+    </button>
+
+  </div>
+
+  <div class="sec-label" style="margin-top:24px;">成績履歴</div>
+  <div id="h-hist"><div class="empty">まだ記録がありません</div></div>
+</div>
+</div>
+
+<!-- ========== RANDOM SELECT ========== -->
+<div class="screen" id="s-rsel">
+<div class="inner">
+  <div class="rand-card">
+    <h3>ランダム出題について</h3>
+    <p>予備試験・国家試験の全400問からシャッフルして出題します。間違えた問題は「要復習」リストに自動保存されます。</p>
+  </div>
+  <div class="sel-label">問題数</div>
+  <div class="ftags" id="rf-count">
+    <button class="ftag on" data-v="10" onclick="qs1r(this)">10問</button>
+    <button class="ftag" data-v="20" onclick="qs1r(this)">20問</button>
+    <button class="ftag" data-v="50" onclick="qs1r(this)">50問</button>
+    <button class="ftag" data-v="0"  onclick="qs1r(this)">全問（400問）</button>
+  </div>
+  <div class="sel-label">オプション</div>
+  <label class="chk-row">
+    <input type="checkbox" id="rf-weak">
+    <span>間違えた問題（要復習）のみ出題</span>
+  </label>
+  <div id="rf-weak-info" class="weak-info" style="display:none">
+    現在 <strong><span id="rf-wc">0</span>問</strong> が要復習リストに登録されています
+  </div>
+  <div style="margin-top:20px;">
+    <button class="btn po full" onclick="startRandom()">シャッフルして開始</button>
+  </div>
+</div>
+</div>
+
+<!-- ========== QUIZ SELECT ========== -->
+<div class="screen" id="s-qsel">
+<div class="inner">
+  <div class="sel-label">出題する回</div>
+  <div class="ftags" id="qf-exams"></div>
+  <div class="sel-label">問題数</div>
+  <div class="ftags" id="qf-count">
+    <button class="ftag on" data-v="20" onclick="qs1(this)">20問</button>
+    <button class="ftag" data-v="50" onclick="qs1(this)">50問</button>
+    <button class="ftag" data-v="0"  onclick="qs1(this)">全問</button>
+  </div>
+  <div class="sel-label">オプション</div>
+  <label class="chk-row">
+    <input type="checkbox" id="qf-weak">
+    <span>間違えた問題（要復習）のみ出題</span>
+  </label>
+  <div style="margin-top:20px;">
+    <button class="btn pg full" onclick="startQuiz()">学習を開始</button>
+  </div>
+</div>
+</div>
+
+<!-- ========== QUIZ / RANDOM ========== -->
+<div class="screen" id="s-quiz">
+<div class="inner">
+  <div class="q-hdr">
+    <div class="prog-wrap"><div class="prog-fill g" id="qz-bar" style="width:0%"></div></div>
+    <div class="q-cnt" id="qz-cnt">0 / 0</div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-card s-ok"><div class="sv" id="qz-ok">0</div><div class="sl">正解</div></div>
+    <div class="stat-card s-ng"><div class="sv" id="qz-ng">0</div><div class="sl">不正解</div></div>
+    <div class="stat-card"><div class="sv" id="qz-rem">—</div><div class="sl">残り</div></div>
+  </div>
+  <div class="q-card">
+    <div class="q-tag" id="qz-tag"></div>
+    <div class="q-text" id="qz-text"></div>
+    <div class="opts" id="qz-opts"></div>
+    <div class="exp-box" id="qz-exp" style="display:none">
+      <span class="exp-label">解 説</span>
+      <span id="qz-expt"></span>
+    </div>
+  </div>
+  <div class="act-row">
+    <button class="btn" onclick="goBack()">終了</button>
+    <button class="btn pg" id="qz-next" onclick="qzNext()" disabled>次の問題 →</button>
+  </div>
+</div>
+</div>
+
+<!-- ========== EXAM SELECT ========== -->
+<div class="screen" id="s-esel">
+<div class="inner">
+  <p style="font-size:12px;color:var(--ink3);margin-bottom:14px;line-height:1.7;">回を選んで50問・50分の本番形式で挑戦しましょう。</p>
+  <div id="esel-list" class="exam-list"></div>
+</div>
+</div>
+
+<!-- ========== EXAM ========== -->
+<div class="screen" id="s-exam">
+<div class="inner">
+  <div class="q-hdr">
+    <div class="prog-wrap"><div class="prog-fill b" id="ex-bar" style="width:0%"></div></div>
+    <div class="timer" id="ex-timer">50:00</div>
+    <div class="q-cnt" id="ex-cnt">0 / 0</div>
+  </div>
+  <div class="q-card">
+    <div class="q-tag" id="ex-tag"></div>
+    <div class="q-text" id="ex-text"></div>
+    <div class="opts" id="ex-opts"></div>
+  </div>
+  <div class="act-row">
+    <button class="btn" onclick="if(confirm('中断しますか？'))finishExam()">中断</button>
+    <button class="btn pb" id="ex-next" onclick="exNext()" disabled>次の問題 →</button>
+  </div>
+</div>
+</div>
+
+<!-- ========== RESULT ========== -->
+<div class="screen" id="s-result">
+<div class="inner">
+  <div class="result-hero">
+    <div class="r-label">RESULT</div>
+    <div class="r-pct" id="r-pct"></div>
+    <div class="r-verdict" id="r-verdict"></div>
+    <div class="r-detail" id="r-detail"></div>
+  </div>
+  <details style="margin-bottom:14px;">
+    <summary style="font-size:12px;color:var(--ink2);padding:11px 14px;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);cursor:pointer;list-style:none;">全問題の正誤を確認する ▾</summary>
+    <div class="rb-list" id="r-breakdown" style="margin-top:8px;"></div>
+  </details>
+  <div class="act-row">
+    <button class="btn" onclick="goHome()">ホームへ</button>
+    <button class="btn" id="r-retry" onclick="retryExam()">もう一度</button>
+  </div>
+</div>
+</div>
+
+<!-- ========== FLASH SELECT ========== -->
+<div class="screen" id="s-fsel">
+<div class="inner">
+  <div class="sel-label">出題する回</div>
+  <div class="ftags" id="ff-exams"></div>
+  <div class="sel-label">オプション</div>
+  <label class="chk-row">
+    <input type="checkbox" id="ff-weak">
+    <span>間違えた問題（要復習）のみ</span>
+  </label>
+  <div id="ff-weak-info" class="weak-info" style="display:none">
+    現在 <strong><span id="ff-wc">0</span>問</strong> が要復習リストに登録されています
+  </div>
+  <div style="margin-top:20px;">
+    <button class="btn pg full" onclick="startFlash()">開始する</button>
+  </div>
+</div>
+</div>
+
+<!-- ========== FLASH ========== -->
+<div class="screen" id="s-flash">
+<div class="inner">
+  <div class="q-hdr">
+    <div class="prog-wrap"><div class="prog-fill g" id="fl-bar" style="width:0%"></div></div>
+    <div class="q-cnt" id="fl-cnt">0 / 0</div>
+  </div>
+  <div class="fl-perspective" onclick="flipCard()">
+    <div class="fl-inner" id="fl-inner" style="min-height:190px;position:relative;">
+      <div class="fl-face front" style="position:relative;">
+        <div class="fl-q-text" id="fl-q"></div>
+        <div class="fl-hint">タップして答えを確認</div>
+      </div>
+      <div class="fl-face back" style="min-height:190px;">
+        <div class="fl-ans" id="fl-ans"></div>
+        <div class="fl-exp" id="fl-exp"></div>
+      </div>
+    </div>
+  </div>
+  <div class="fl-nav">
+    <button class="btn" onclick="flMove(-1)">← 前</button>
+    <div class="fl-pos" id="fl-pos"></div>
+    <button class="btn" onclick="flMove(1)">次 →</button>
+  </div>
+  <div class="fl-marks">
+    <button class="btn mk" onclick="markCard(true)">覚えた</button>
+    <button class="btn mb" onclick="markCard(false)">要復習</button>
+    <button class="btn" onclick="goBack()">終了</button>
+  </div>
+</div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bnav">
+  <button class="bn on" id="bn-home" onclick="goHome()">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span>ホーム</span>
+  </button>
+  <button class="bn" id="bn-rand" onclick="goTo('s-rsel')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+    <span>ランダム</span>
+  </button>
+  <button class="bn" id="bn-exam" onclick="goTo('s-esel')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+    <span>模擬試験</span>
+  </button>
+  <button class="bn" id="bn-flash" onclick="goTo('s-fsel')">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="6" width="20" height="13" rx="2"/><path d="M2 10h20"/></svg>
+    <span>カード</span>
+  </button>
+</nav>
+
+<script>
+const EXAMS_INFO=[
+  {id:'y1',type:'yobi',no:1,name:'第1回予備試験',date:'2022年11月6日'},
+  {id:'y2',type:'yobi',no:2,name:'第2回予備試験',date:'2023年10月1日'},
+  {id:'y3',type:'yobi',no:3,name:'第3回予備試験',date:'2024年10月6日'},
+  {id:'y4',type:'yobi',no:4,name:'第4回予備試験',date:'2025年10月5日'},
+  {id:'k1',type:'kokka',no:1,name:'第1回国家試験',date:'2023年2月19日'},
+  {id:'k2',type:'kokka',no:2,name:'第2回国家試験',date:'2024年2月18日'},
+  {id:'k3',type:'kokka',no:3,name:'第3回国家試験',date:'2025年2月16日'},
+  {id:'k4',type:'kokka',no:4,name:'第4回国家試験',date:'2026年2月15日'},
+];
+
+// ---- 予備試験 ----
+const Y1=[
+  {no:1,q:'人が動物を利用することを認めながら、その動物が生きている間は質の高い生活が守られるよう配慮する考えはどれか。',o:['動物保護','動物福祉','動物管理','動物看護','動物愛護'],a:2,e:'動物の利用を認めつつ生活の質（QOL）を守る考えが動物福祉（アニマルウェルフェア）です。'},
+  {no:2,q:'エネルギーを産生する細胞小器官はどれか。',o:['核','リボソーム','小胞体','ゴルジ装置','ミトコンドリア'],a:5,e:'ミトコンドリアはATP産生（細胞の「発電所」）を担う細胞小器官です。'},
+  {no:3,q:'脂質を分解する消化酵素はどれか。',o:['アミラーゼ','トリプシン','ペプシン','リパーゼ','マルターゼ'],a:4,e:'リパーゼは脂質（トリグリセリド）を脂肪酸とグリセロールに分解します。'},
+  {no:4,q:'膵島から分泌されるホルモンはどれか。',o:['オキシトシン','パラソルモン','インスリン','ACTH','エリスロポエチン'],a:3,e:'膵臓のランゲルハンス島B細胞からインスリンが分泌されます。'},
+  {no:5,q:'腎臓に存在するのはどれか。',o:['シュワン細胞','クッパー細胞','メルケル細胞','パネート細胞','メサンギウム細胞'],a:5,e:'メサンギウム細胞は糸球体に存在する細胞で、支持と貪食機能を持ちます。'},
+  {no:6,q:'血液をろ過して尿を作る臓器はどれか。',o:['膀胱','腎臓','肝臓','副腎','膵臓'],a:2,e:'腎臓の糸球体で血液がろ過され原尿が生成されます。'},
+  {no:7,q:'血管内から組織に遊走してマクロファージとして働く白血球はどれか。',o:['好中球','好酸球','好塩基球','単球','リンパ球'],a:4,e:'単球は組織に出るとマクロファージに分化し、貪食能を発揮します。'},
+  {no:8,q:'犬の妊娠期間はどれか。',o:['約21日','約63日','約93日','約152日','約330日'],a:2,e:'犬の妊娠期間は約63日（約9週間）です。'},
+  {no:9,q:'猫の尿マーキングの一般的な特徴はどれか。',o:['去勢により頻度が減少する。','通常は座位で行う。','引き続いて砂をかける。','老齢猫に特有の行動である。','不安が唯一の原因である。'],a:1,e:'去勢・避妊手術により尿マーキングの頻度は大幅に減少します。'},
+  {no:10,q:'5大栄養素でないのはどれか。',o:['ビタミン','炭水化物','脂質','水分','タンパク質'],a:4,e:'5大栄養素はタンパク質・脂質・炭水化物・ビタミン・ミネラルです。水は必須ですが含まれません。'},
+  {no:11,q:'犬に与えても支障がない食材はどれか。',o:['タマネギ','生卵','チョコレート','まぐろ','ぶどう'],a:4,e:'まぐろ（魚）は適量であれば問題ありません。タマネギ・ぶどう・チョコレートは有毒です。'},
+  {no:12,q:'ボディ・コンディション・スコア（BCS）から分かることはどれか。',o:['体脂肪率','病気の既往歴','栄養状態','骨密度','筋肉量'],a:3,e:'BCSは触診・視診で体の充実度を評価し、栄養状態（肥満・痩せ）を判断する指標です。'},
+  {no:13,q:'牛に関する記述として正しいのはどれか。',o:['反芻動物である。','交尾排卵である。','胃は1つである。','奇蹄目に属する。','イノシシを家畜化した動物である。'],a:1,e:'牛は反芻動物で4つの胃を持ち、偶蹄目に属します。'},
+  {no:14,q:'動物実験において、回復が見込めない動物に対して安楽死を選択することを何というか。',o:['人道的エンリッチメント','人道的リファインメント','人道的リダクション','人道的エンドポイント','人道的エンディング'],a:4,e:'人道的エンドポイントとは苦痛が続く動物に安楽死などの終点を設定することです。'},
+  {no:15,q:'「愛玩動物看護師法」に関する記述として正しいのはどれか。\nａ:所管は厚生労働省である。\nｂ:愛玩動物には犬、猫以外に政令で定める動物も含まれる。\nｃ:罰金以上の刑に処された者に免許が与えられないことがある。\nｄ:免許は国家試験に合格すれば与えられる。\nｅ:業務は診療の補助のみである。',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:2,e:'所管は農林水産省・環境省（厚労省ではない）。業務には飼い主指導も含まれます。b・cが正しい。'},
+  {no:16,q:'「動物の愛護及び管理に関する法律」を所管する機関はどれか。',o:['内閣府','農林水産省','厚生労働省','経済産業省','環境省'],a:5,e:'動物愛護管理法（動愛法）は環境省が所管しています。'},
+  {no:17,q:'獣医療行為を行う際に、飼い主が十分な説明を受け理解し同意することはどれか。',o:['セカンドオピニオン','インフォームドコンセント','コンプライアンス','ノンバーバルコミュニケーション','クライアントエデュケーション'],a:2,e:'インフォームドコンセント（IC）は説明と同意を意味します。'},
+  {no:18,q:'「獣医師法施行規則」に記載されている犬および猫の診療録（カルテ）の保存期間はどれか。',o:['1年','2年','3年','5年','10年'],a:3,e:'獣医師法施行規則では診療録の保存期間は3年とされています。'},
+  {no:19,q:'炎症の5大主徴に含まれないのはどれか。',o:['発赤','熱感','疼痛','腫脹','漏出'],a:5,e:'炎症の5大主徴は発赤・熱感・疼痛・腫脹・機能障害です。漏出は含まれません。'},
+  {no:20,q:'悪性腫瘍に関する一般的な特徴として誤っているのはどれか。',o:['転移する。','再発する。','細胞分裂像が少ない。','細胞異型度が高い。','浸潤する。'],a:3,e:'悪性腫瘍では細胞分裂像が多い（増殖が活発）のが特徴です。「少ない」は誤りです。'},
+  {no:21,q:'血液細胞の腫瘍はどれか。',o:['白血病','血腫','肉芽腫','平滑筋腫','骨肉腫'],a:1,e:'白血病は白血球（血液細胞）が悪性増殖する腫瘍です。'},
+  {no:22,q:'体内で薬物代謝が行われる際、中心的な役割をはたす臓器はどれか。',o:['肝臓','心臓','大腸','小腸','脾臓'],a:1,e:'肝臓はCYP（シトクロムP450）などの酵素で薬物を代謝する主要臓器です。'},
+  {no:23,q:'細菌に関する一般的な特徴として正しいのはどれか。\nａ:ゲノムはRNAからなる。\nｂ:核膜をもつ。\nｃ:細胞壁をもつ。\nｄ:二分裂によって増殖する。\nｅ:宿主細胞のなかでのみ増殖する。',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:3,e:'細菌はDNAゲノム・核膜なし・細胞壁あり・二分裂で増殖します。c・dが正しいです。'},
+  {no:24,q:'人獣共通感染症はどれか。\nａ:ケンネルコフ　ｂ:SFTS　ｃ:レプトスピラ症　ｄ:口蹄疫　ｅ:マレック病',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:2,e:'SFTSとレプトスピラ症は人獣共通感染症（ズーノーシス）です。'},
+  {no:25,q:'犬のウイルス感染症はどれか。',o:['ジステンパー','結核','ヨーネ病','ニューカッスル病','クリプトコックス症'],a:1,e:'ジステンパーは犬ジステンパーウイルスによる感染症。結核は細菌、クリプトコックスは真菌です。'},
+  {no:26,q:'Ⅰ型アレルギーに主に関与する細胞はどれか。',o:['リンパ球','好中球','肥満細胞','類上皮細胞','マクロファージ'],a:3,e:'I型（即時型）アレルギーはIgEと肥満細胞（マスト細胞）が主に関与します。'},
+  {no:27,q:'感染症の発生様式で、世界的な規模で広がる流行はどれか。',o:['スポラディック','パンデミック','エンデミック','パラメディック','インフォデミック'],a:2,e:'パンデミック（pandemic）は感染症が世界的規模で流行している状態です。'},
+  {no:28,q:'蚊が媒介動物となる感染症はどれか。\nａ:日本脳炎　ｂ:デング熱　ｃ:ペスト　ｄ:日本紅斑熱　ｅ:レプトスピラ症',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:1,e:'日本脳炎とデング熱は蚊が媒介します。ペストはノミ、日本紅斑熱はダニです。'},
+  {no:29,q:'等張電解質液はどれか。',o:['5%ブドウ糖液','0.9%生理食塩液','開始液（ソルデム1号）','維持液（ソルデム3号）','アルブミン製剤'],a:2,e:'0.9%生理食塩液は血漿と等張な電解質液の代表です。'},
+  {no:30,q:'心電図検査で標準双極肢のⅡ誘導の接続はどれか。',o:['右前肢と左前肢','右前肢と左後肢','左前肢と左後肢','左前肢と右後肢','右後肢と左後肢'],a:2,e:'II誘導＝右前肢（負）→左後肢（正）の誘導です。'},
+  {no:31,q:'動物のX線検査において愛玩動物看護師の役割でないのはどれか。',o:['動物の保定','フィルムの現像','撮影条件の確認','撮影像の読影','撮影機器の準備'],a:4,e:'X線撮影像の読影（診断）は獣医師の業務です。'},
+  {no:32,q:'ウッド灯検査により診断される疾患はどれか。',o:['カンジダ症','皮膚糸状菌症','天疱瘡','扁平上皮癌','毛包虫症'],a:2,e:'ウッド灯照射でMicrosporum canisによる皮膚糸状菌症が蛍光を発します。'},
+  {no:33,q:'オートクレーブを用いた滅菌に最も適するのはどれか。',o:['内視鏡','電気メス','外科剪刀','気管チューブ','輸液パック'],a:3,e:'オートクレーブ（高圧蒸気滅菌）は金属製器具（外科剪刀など）に最適です。'},
+  {no:34,q:'手術前の手指洗浄に用いる消毒薬はどれか。\nａ:クロルヘキシジン　ｂ:昇汞水　ｃ:クレゾール石けん　ｄ:石炭酸（フェノール）　ｅ:ポビドンヨード',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:5,e:'手術前手指消毒にはクロルヘキシジンとポビドンヨードが標準的に使用されます。'},
+  {no:35,q:'動物を麻酔する際に愛玩動物看護師が行ってはならないのはどれか。',o:['動物の全身状態の把握','飼い主への問診','麻酔リスクの理解','動物の看視記録の作成','麻酔薬投与量の設定'],a:5,e:'麻酔薬の投与量設定は獣医師の業務です。'},
+  {no:36,q:'動物看護過程における5段階のうち、目標設定し具体策を立案するステップはどれか。',o:['アセスメント','動物看護診断','動物看護計画','動物看護実践','動物看護評価'],a:3,e:'目標設定・具体策の立案は「動物看護計画」の段階です。'},
+  {no:37,q:'動物看護記録の記載上の注意点として正しいのはどれか。\nａ:略語や専門用語は使用しない。\nｂ:個人的な感想も適宜記載する。\nｃ:事実を記載する。\nｄ:飼い主のプライバシーの保護に配慮する。\nｅ:誤記載には修正テープを使用する。',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:3,e:'看護記録は事実を客観的に記載し、個人情報に配慮します。修正は二重線と訂正印が原則です。'},
+  {no:38,q:'小腸性下痢の特徴として正しいのはどれか。',o:['脂肪便はみられない。','体重減少がある。','しぶりがよくみられる。','1回あたりの糞便量は減少する。','1日あたりの排便回数は大幅に増加する。'],a:2,e:'小腸性下痢では栄養吸収が障害され体重減少が起こります。しぶりは大腸性の特徴です。'},
+  {no:39,q:'犬の肝硬変でみられる検査所見はどれか。\nａ:血小板増多　ｂ:プロトロンビン時間短縮　ｃ:血中ビリルビン値上昇　ｄ:血中アンモニア値上昇　ｅ:血中アルブミン値上昇',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:3,e:'肝硬変ではビリルビン代謝障害と高アンモニア血症が起きます。'},
+  {no:40,q:'犬において、空嘔吐や腹囲膨満などの症状が急速に現れた場合、最も疑わしいのはどれか。',o:['胃拡張胃捻転症候群','巨大結腸症','食道狭窄','腸リンパ管拡張症','パルボウイルス感染症'],a:1,e:'GDV（胃拡張捻転症候群）は大型犬に多く、急性の腹囲膨満・空嘔吐が特徴の緊急疾患です。'},
+  {no:41,q:'犬の水頭症に関する一般的な特徴はどれか。\nａ:大部分が後天性である。\nｂ:大型犬に多い。\nｃ:脳室に脳脊髄液が異常に貯留する。\nｄ:けいれん発作や行動異常などの症状が認められる。\nｅ:外科的な治療法は存在しない。',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:3,e:'水頭症は脳脊髄液が脳室に貯留する疾患。先天性・小型犬に多く、けいれん・行動異常が出ます。'},
+  {no:42,q:'心原性ショックの臨床症状として正しいのはどれか。',o:['尿量の増加','体温の上昇','血圧の低下','活動亢進','脊髄反射の亢進'],a:3,e:'心原性ショックでは心拍出量低下により血圧低下が起こります。'},
+  {no:43,q:'一次止血で血栓を形成する血液細胞はどれか。',o:['赤血球','好中球','単球','リンパ球','血小板'],a:5,e:'一次止血では血小板が凝集して血小板栓を形成します。'},
+  {no:44,q:'猫の品種はどれか。\nａ:メインクーン　ｂ:ラサ・アプソ　ｃ:ロップイヤー　ｄ:ウィペット　ｅ:ラグドール',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:5,e:'メインクーンとラグドールは猫の品種。ラサ・アプソとウィペットは犬、ロップイヤーはウサギです。'},
+  {no:45,q:'最古の家畜化動物はどれか。',o:['犬','猫','馬','鶏','豚'],a:1,e:'犬は約1万5千年前以上に家畜化された最古の家畜と考えられています。'},
+  {no:46,q:'ヒューマン・アニマル・ボンドの説明として最も適切なのはどれか。',o:['人と動物の共生の歴史が古いことを示す。','人と動物が共生することでおこるトラブルを示す。','人が動物に与える利益、環境を示す。','人と動物が交流することで双方に利益がある関係性を示す。','人と動物の共通感染症を示す。'],a:4,e:'ヒューマン・アニマル・ボンド（HAB）とは人と動物の相互に有益な絆・関係性を指します。'},
+  {no:47,q:'動物介在療法（AAT）に関する記述として正しいのはどれか。',o:['野生動物は使用しない。','介在動物のトレーニングには体罰を用いる。','いかなる場合も介在動物より患者を優先する。','入院病棟では実施しない。','獣医師が効果を判定する。'],a:1,e:'AATには訓練された動物が使用され、野生動物は用いません。'},
+  {no:48,q:'災害時に飼い主に推奨されている行動はどれか。',o:['同行避難','同時避難','同調避難','同期避難','同日避難'],a:1,e:'環境省は「同行避難」（飼い主とペットが一緒に避難）を推奨しています。'},
+  {no:49,q:'動物を販売するペットショップの義務として誤っているのはどれか。',o:['店舗ごとに動物取扱責任者をおく。','他の施設から運搬した動物は当日に引き渡す。','購入希望者が目視で確認できるように展示する。','販売する動物の情報を見やすい位置に掲示する。','重要事項の説明後に購入者の確認を書類に残す。'],a:2,e:'運搬当日の引き渡しを義務づける規定はありません。'},
+  {no:50,q:'犬猫等販売業者で生まれた子猫を、販売のために引き渡しや展示ができる最短の生後日数はどれか。',o:['35日','49日','56日','90日','120日'],a:3,e:'動愛法改正により、犬猫の販売のための引き渡し・展示は生後56日（8週齢）以降とされています。'},
+];
+const Y2=[
+  {no:1,q:'愛玩動物の災害への備えとして適切でないのはどれか。',o:['マイクロチップを装着する。','リードをはずして散歩する。','ケージに慣らす。','ワクチンを接種する。','フードや薬を準備する。'],a:2,e:'リードをはずして散歩するのは迷子・逃走リスクがあり不適切です。'},
+  {no:2,q:'哺乳類の細胞で、核がないのはどれか。',o:['骨格筋細胞','骨細胞','リンパ球','赤血球','精子'],a:4,e:'哺乳類の成熟赤血球は脱核しており、核を持ちません。'},
+  {no:3,q:'犬の歯式はどれか。',o:['上顎3131、下顎3121','上顎3143、下顎3143','上顎2123、下顎2123','上顎0033、下顎4033','上顎3142、下顎3143'],a:5,e:'犬の永久歯歯式は上顎3142・下顎3143で合計42本です。'},
+  {no:4,q:'食物摂取後、タンパク質の分解に最初に関係する消化器はどれか。',o:['口腔','食道','胃','小腸','大腸'],a:3,e:'タンパク質はペプシン（胃液）によって胃で最初に分解が始まります。'},
+  {no:5,q:'膵臓から分泌され血糖値を調節するホルモンはどれか。',o:['バソプレシン','パラソルモン','グルカゴン','コルチゾール','カルシトニン'],a:3,e:'グルカゴンはα細胞から分泌され血糖値を上昇させます。'},
+  {no:6,q:'十字靭帯を有する関節はどれか。',o:['顎関節','椎間関節','肘関節','膝関節','足根関節'],a:4,e:'膝関節には前十字靭帯（CrCL）と後十字靭帯があります。'},
+  {no:7,q:'精巣でテストステロンを分泌する細胞はどれか。',o:['顆粒膜細胞','セルトリ細胞','線維芽細胞','精祖細胞','ライディッヒ細胞'],a:5,e:'ライディッヒ細胞（間質細胞）はLH刺激を受けテストステロンを産生します。'},
+  {no:8,q:'犬の受精部位はどれか。',o:['卵巣','卵管','子宮体','子宮頚部','腟'],a:2,e:'受精は卵管内で起こります。犬・猫ともに同様です。'},
+  {no:9,q:'猫の社会化期として最も適切なのはどれか。',o:['０〜１週齢','２〜９週齢','10〜17週齢','18〜25週齢','26〜33週齢'],a:2,e:'猫の社会化期は生後2〜9週齢です（犬は3〜12週齢）。'},
+  {no:10,q:'犬にフードを与えると同時にベルの音を聴かせると、ベルの音だけで唾液が出るようになる。この現象はどれか。',o:['馴化','感作','古典的条件づけ','オペラント条件づけ','自発的回復'],a:3,e:'パブロフの実験で有名な古典的条件づけ（レスポンデント条件づけ）です。'},
+  {no:11,q:'水溶性ビタミンはどれか。\nａ:ビタミンＡ　ｂ:ビタミンB1　ｃ:ビタミンＣ　ｄ:ビタミンＤ　ｅ:ビタミンＥ',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:2,e:'水溶性ビタミンはB群とCです。A・D・E・Kは脂溶性です。'},
+  {no:12,q:'ヘモグロビンに含まれるミネラルはどれか。',o:['リン','カルシウム','ナトリウム','鉄','銅'],a:4,e:'ヘモグロビンのヘム鉄（Fe²⁺）が酸素と結合して酸素運搬を行います。'},
+  {no:13,q:'アミノ酸でないのはどれか。',o:['レチノール','グリシン','ロイシン','フェニルアラニン','トリプトファン'],a:1,e:'レチノールはビタミンAの一形態です。'},
+  {no:14,q:'胆嚢をもたない動物種はどれか。',o:['マウス','犬','猫','馬','牛'],a:4,e:'馬は胆嚢を持ちません。胆汁は肝臓から直接十二指腸に分泌されます。'},
+  {no:15,q:'無目的で機能不明な反復性の高い動物の行動はどれか。',o:['身づくろい行動','常同行動','護身行動','マーキング行動','攻撃行動'],a:2,e:'常同行動（ステレオタイプ行動）は目的のない反復行動で、ストレスや不適切な環境が原因です。'},
+  {no:16,q:'「動物の愛護及び管理に関する法律」が定める第一種動物取扱業者が守るべき基準でないのはどれか。',o:['1日1回以上の清掃の実施','動物の逸走防止','現物確認・対面説明','マイクロチップ登録証明書の交付','動物取扱責任者の配置'],a:4,e:'マイクロチップ登録証明書の交付は第一種動物取扱業者の基準ではありません。'},
+  {no:17,q:'愛玩動物看護師の業務として誤っているのはどれか。',o:['疾病の診断','診療の補助','入院動物の世話','日常の手入れの指導','栄養の管理'],a:1,e:'疾病の診断は獣医師の業務です。愛玩動物看護師は診断を行えません。'},
+  {no:18,q:'動物看護記録に関する記述として正しいのはどれか。',o:['鉛筆で記載する。','記載者の記名は不要。','1年以上の保存義務がある。','主観的観察のみを記載する。','行った看護の内容を記載する。'],a:5,e:'看護記録には実施した看護の内容を客観的に記載します。'},
+  {no:19,q:'動物組織の細胞診で、一般的に用いられる染色法はどれか。',o:['ヘマトキシリン・エオジン（HE）染色','ベルリンブルー染色','グラム染色','PAS染色','ライト・ギムザ染色'],a:5,e:'細胞診（スメア）ではライト・ギムザ染色が一般的です。HE染色は組織切片に用います。'},
+  {no:20,q:'化膿性炎症に特徴的な炎症細胞はどれか。',o:['好中球','好酸球','好塩基球','リンパ球','単球'],a:1,e:'化膿性炎症（膿の形成）では好中球が主体となります。'},
+  {no:21,q:'悪性腫瘍はどれか。',o:['肉芽腫','歯肉腫','線維肉腫','乳頭腫','脂肪腫'],a:3,e:'線維肉腫は線維芽細胞由来の悪性腫瘍。乳頭腫・脂肪腫は良性です。'},
+  {no:22,q:'薬の作用が最も早く現れる投与方法はどれか。',o:['筋肉内注射','腹腔内注射','静脈内注射','経口投与','皮下注射'],a:3,e:'静脈内注射（IV）は血中に直接投与するため最も速く作用します。'},
+  {no:23,q:'ウイルス性人獣共通感染症はどれか。',o:['狂犬病','ジステンパー','トキソプラズマ症','アニサキス症','結核'],a:1,e:'狂犬病はラブドウイルスによるウイルス性人獣共通感染症です。'},
+  {no:24,q:'正常な毛細血管再充満時間（CRT）はどれか。',o:['1〜2秒','3〜4秒','5〜6秒','7〜8秒','9〜10秒'],a:1,e:'正常なCRTは2秒以内です。2秒超は循環不全を示唆します。'},
+  {no:25,q:'胆管閉塞で現れる特徴的な症状はどれか。',o:['貧血','チアノーゼ','アナフィラキシー','黄疸','浮腫'],a:4,e:'胆管閉塞では胆汁うっ滞によりビリルビンが蓄積し黄疸が現れます。'},
+  {no:26,q:'内服薬投与時の目安に関する記述として誤っているのはどれか。',o:['食前薬は食事の約30分前に投与する。','食直前薬は食事の直前に投与する。','食間薬は食事中に投与する。','食直後薬は食事の直後に投与する。','食後薬は食事後30分以内に投与する。'],a:3,e:'食間薬は「食事と食事の間」（食後2〜3時間）に投与します。「食事中」ではありません。'},
+  {no:27,q:'動物に対する手術直前の準備として最も適切なのはどれか。',o:['食事を与えない。','寄生虫の予防をする。','トリミングをする。','ワクチンを投与する。','十分な運動をさせる。'],a:1,e:'麻酔前は誤嚥性肺炎防止のため絶食（通常8〜12時間）が必要です。'},
+  {no:28,q:'止血の目的で使用される鉗子はどれか。',o:['アリス鉗子','バブコック鉗子','モスキート鉗子','タオル鉗子','アリゲーター鉗子'],a:3,e:'モスキート鉗子は細かい血管の把持・止血に使用される止血鉗子です。'},
+  {no:29,q:'麻酔薬や鎮静薬の静脈内投与に関する記述として正しいのはどれか。',o:['皮下投与と同等の効果がある。','留置針の使用が望ましい。','総頚静脈が最も多く利用される。','可能な限り急速に投与する。','動物の様子を観察する必要はない。'],a:2,e:'静脈内投与には留置針（カテーテル）の使用が安全で望ましいです。'},
+  {no:30,q:'看護動物の毎日の食事管理、体重、体温、呼吸数を測定する行為はどれか。',o:['アセスメント','動物看護診断','動物看護計画','動物看護実践','評価'],a:4,e:'計画に基づいて実際にケアを実施する段階が「動物看護実践」です。'},
+  {no:31,q:'動物看護計画に関する記述として正しいのはどれか。',o:['飼い主からの情報のみに基づく。','獣医師のみが行う。','抽象的な目標を立てる。','治療方針を立案する。','抽出した問題点の解決方法を設定する。'],a:5,e:'看護計画では問題点（看護診断）に対する解決策・目標を具体的に設定します。'},
+  {no:32,q:'2か月齢の犬の初診で、愛玩動物看護師が行える業務はどれか。',o:['遺残乳歯の抜歯','寄生虫予防薬の処方','狂犬病ワクチンの接種','不妊手術時期の決定','必要な摂取カロリーの計算'],a:5,e:'カロリー計算は愛玩動物看護師が行える栄養管理業務です。'},
+  {no:33,q:'ホスピスケアに関する記述として誤っているのはどれか。',o:['終末期に行うケアである。','病気を完治させる治療である。','獣医師以外のスタッフも参加する。','適切な疼痛管理を行う。','必要な対症療法を行う。'],a:2,e:'ホスピスケアは完治を目指すのではなく、QOLの維持と苦痛緩和を目的とした終末期ケアです。'},
+  {no:34,q:'バイタルサインに含まれないのはどれか。',o:['血圧','呼吸','体温','体重','脈拍'],a:4,e:'バイタルサインは体温・脈拍・呼吸・血圧の4項目です。体重は含まれません。'},
+  {no:35,q:'血液成分で、減少すると出血傾向になるのはどれか。',o:['血小板','赤血球','好中球','単球','リンパ球'],a:1,e:'血小板が減少すると凝固能が低下し出血傾向になります。'},
+  {no:36,q:'犬が摂取すると低血糖を起こす危険があるのはどれか。',o:['ネギ','チョコレート','アボカド','ブドウ','キシリトールガム'],a:5,e:'キシリトールは犬でインスリン分泌を促進し、重篤な低血糖を引き起こします。'},
+  {no:37,q:'内耳炎が原因となるのはどれか。',o:['跛行','捻転斜頚','多飲多尿','便秘','頻脈'],a:2,e:'内耳炎では前庭神経が障害され、頭が傾く捻転斜頚や眼振が現れます。'},
+  {no:38,q:'白内障で混濁する眼の部位はどれか。',o:['結膜','角膜','水晶体','毛様体','硝子体'],a:3,e:'白内障は水晶体（レンズ）が混濁する疾患で、視力低下を引き起こします。'},
+  {no:39,q:'0.9%（w/v）の生理食塩水を500mLつくるのに必要な食塩の量はどれか。',o:['4.0g','4.5g','5.0g','5.5g','6.0g'],a:2,e:'0.009×500=4.5gです。'},
+  {no:40,q:'健常犬の血液中で、一般的に数が最も少ない白血球はどれか。',o:['好中球','好酸球','好塩基球','リンパ球','単球'],a:3,e:'好塩基球は白血球分画で最少（0〜1%）です。'},
+  {no:41,q:'肝臓の評価に用いられる血液検査項目はどれか。',o:['PCV','ALT','CRE','T4','CK'],a:2,e:'ALTは犬猫の肝細胞障害で上昇する肝特異的酵素です。'},
+  {no:42,q:'尿試験紙で評価できないのはどれか。',o:['pH','タンパク','尿円柱','ビリルビン','ケトン体'],a:3,e:'尿円柱は試験紙では検出できず、顕微鏡による尿沈渣検査が必要です。'},
+  {no:43,q:'遠心しても赤色を示した尿の色が変わらない場合、多量に存在するのはどれか。',o:['赤血球','移行上皮細胞','シスチン結晶','ヘモグロビン','ビリルビン'],a:4,e:'遠心で赤血球は沈殿しますが、ヘモグロビン（溶血）は溶液中に残り赤色を保ちます。'},
+  {no:44,q:'動物の飼養方法や健康に関して、飼い主を教育・支援することを何というか。',o:['アドヒアランス','インフォームドコンセント','クライアントエデュケーション','コンプライアンス','ラポール'],a:3,e:'クライアントエデュケーションとは飼い主への教育・支援活動を指します。'},
+  {no:45,q:'飼い主との面接における基本的技法として誤っているのはどれか。',o:['傾聴','説明','共感','支持','説得'],a:5,e:'面接では傾聴・共感・支持・説明が基本。「説得」は一方的に変えようとする行為で不適切です。'},
+  {no:46,q:'身体障害者補助犬でないのはどれか。\nａ:介助犬　ｂ:セラピー犬　ｃ:災害救助犬　ｄ:盲導犬　ｅ:聴導犬',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:2,e:'身体障害者補助犬法で定められるのは盲導犬・聴導犬・介助犬の3種です。'},
+  {no:47,q:'高齢者が動物を飼育するメリットとして誤っているのはどれか。',o:['健康の増進','人間関係の円滑化','心の支え','家計の改善','規則正しい生活'],a:4,e:'動物の飼育には費用がかかるため「家計の改善」は誤りです。'},
+  {no:48,q:'動物介在活動（AAA）に適した動物の性質はどれか。',o:['触られると緊張する。','対象者に友好的である。','常に人を威嚇する。','活動が好きで興奮する。','突飛な行動が多い。'],a:2,e:'AAAに適した動物は穏やかで人に友好的であることが必要です。'},
+  {no:49,q:'ドッグランに関する説明として正しいのはどれか。',o:['開設の際は環境省に届け出る。','発情中の雌犬も自由に参加できる。','攻撃性の強いリーダー犬を入れる。','トラブルは飼い主の責任である。','糞尿の始末は不要である。'],a:4,e:'ドッグランでのトラブルは飼い主の管理責任となります。'},
+  {no:50,q:'動物販売業者が行う販売動物の紹介および説明として誤っているのはどれか。',o:['対面で実施する。','売買契約後に実施する。','動物の状態を見せる。','動物の情報を見やすい位置に掲示する。','病歴を示す。'],a:2,e:'重要事項の説明は売買契約前に実施しなければなりません。'},
+];
+const Y3=[
+  {no:1,q:'リボソームの機能はどれか。',o:['遺伝情報の保持','ATPの産生','タンパク質の合成','光合成の実施','異物の分解'],a:3,e:'リボソームはmRNAの情報に基づきタンパク質を合成する細胞小器官です。'},
+  {no:2,q:'DNAに含まれない塩基はどれか。',o:['アデニン','グアニン','チミン','ウラシル','シトシン'],a:4,e:'ウラシルはRNA固有の塩基。DNAにはチミン（T）が含まれます。'},
+  {no:3,q:'支持組織はどれか。',o:['皮膚','骨格筋','脳','骨','耳下腺'],a:4,e:'骨は支持組織（結合組織の一種）に分類されます。'},
+  {no:4,q:'小腸を構成する部位の組合せはどれか。',o:['十二指腸　空腸　回腸','十二指腸　回腸　結腸','空腸　回腸　盲腸','空腸　結腸　直腸','回腸　結腸　直腸'],a:1,e:'小腸は十二指腸・空腸・回腸の3部位からなります。'},
+  {no:5,q:'グルコース（ブドウ糖）の代謝経路はどれか。',o:['電子伝達系→解糖系→クエン酸回路','解糖系→電子伝達系→クエン酸回路','解糖系→クエン酸回路→電子伝達系','クエン酸回路→解糖系→電子伝達系','クエン酸回路→電子伝達系→解糖系'],a:3,e:'グルコース代謝は解糖系→クエン酸回路→電子伝達系の順です。'},
+  {no:6,q:'抗利尿ホルモンはどれか。',o:['グルカゴン','インスリン','バソプレシン','オキシトシン','プロラクチン'],a:3,e:'バソプレシン（ADH）は腎集合管での水再吸収を促進します。'},
+  {no:7,q:'哺乳動物で一般的な頚椎の数はどれか。',o:['5','6','7','8','9'],a:3,e:'ほとんどの哺乳動物の頚椎数は7個です（キリンも同じ）。'},
+  {no:8,q:'犬の正常な子宮の形態はどれか。',o:['重複子宮','弓状子宮','単一子宮','双角子宮','中隔子宮'],a:4,e:'犬・猫の子宮はY字型の双角子宮（二角子宮）で、二つの子宮角を持ちます。'},
+  {no:9,q:'維持行動でないのはどれか。',o:['摂食行動','飲水行動','排泄行動','母性行動','身づくろい行動'],a:4,e:'維持行動は個体の生命維持に必要な行動。母性行動は繁殖行動です。'},
+  {no:10,q:'犬の発達段階において、生後3〜12週齢が該当するのはどれか。',o:['新生子期','移行期','社会化期','若年期','成熟期'],a:3,e:'社会化期（3〜12週齢）は他の動物・人・環境への適応が形成される重要な時期です。'},
+  {no:11,q:'犬でみられない問題行動はどれか。',o:['恐怖症','分離不安','母性攻撃行動','所有性攻撃行動','スプレー行動'],a:5,e:'スプレー行動（尿マーキング）は主に猫にみられる行動です。'},
+  {no:12,q:'血液凝固に重要な役割をはたすビタミンはどれか。',o:['ビタミンＡ','ビタミンＣ','ビタミンＤ','ビタミンＥ','ビタミンＫ'],a:5,e:'ビタミンKは凝固因子（II・VII・IX・X因子）の産生に必要です。'},
+  {no:13,q:'1gあたりのカロリーが最も高い栄養素はどれか。',o:['糖','脂肪','タンパク質','ビタミン','ミネラル'],a:2,e:'脂肪は9kcal/g、タンパク質と糖質は4kcal/gです。'},
+  {no:14,q:'そのフードと水だけで、指定された成長段階の健康を維持できるのはどれか。',o:['総合栄養食','間食','一般食','栄養補完食','動物用栄養補助食'],a:1,e:'総合栄養食はそれだけ与えることで必要な栄養を全て摂取できるフードです。'},
+  {no:15,q:'心疾患の管理に用いられる療法食はどれか。',o:['高脂肪食','糖質制限食','高繊維食','低ナトリウム食','低アレルギー食'],a:4,e:'心疾患（心不全）では塩分（ナトリウム）制限により体液貯留・血圧上昇を防ぎます。'},
+  {no:16,q:'嗉嚢を有する動物はどれか。',o:['めん羊','豚','馬','山羊','鶏'],a:5,e:'嗉嚢（そのう）は食物を一時的に貯蔵する消化器官で、鶏など鳥類に存在します。'},
+  {no:17,q:'特別天然記念物はどれか。',o:['アライグマ','ニホンカモシカ','タヌキ','ツキノワグマ','ニホンモモンガ'],a:2,e:'ニホンカモシカは特別天然記念物に指定されています。'},
+  {no:18,q:'「麻薬及び向精神薬取締法」で規制される薬品はどれか。',o:['プロポフォール','チオペンタール','ケタミン','イソフルラン','セボフルラン'],a:3,e:'ケタミンは麻薬及び向精神薬取締法で規制される麻薬に分類されます。'},
+  {no:19,q:'「動物の愛護及び管理に関する法律」で規定されている愛護動物はどれか。',o:['アマガエル','アメリカザリガニ','キュウカンチョウ','キンギョ','カブトムシ'],a:3,e:'愛護動物には哺乳類・鳥類・爬虫類が含まれます。キュウカンチョウ（鳥類）が該当します。'},
+  {no:20,q:'人・動物・環境の健康を一体的に守ろうとする概念はどれか。',o:['One Safety','One Welfare','One Environment','One Health','One Conservation'],a:4,e:'One Health（ワンヘルス）は人・動物・環境の健康を一体的にとらえる概念です。'},
+  {no:21,q:'飼い主が主治医以外の獣医師の意見を求めるのはどれか。',o:['セカンドオピニオン','インフォームドコンセント','フォーカスチャーティング','クライアントエデュケーション','ウェルネスプログラム'],a:1,e:'セカンドオピニオンは担当医以外の専門家に意見を求めることです。'},
+  {no:22,q:'「愛玩動物看護者の倫理綱領」に規定されていないのはどれか。',o:['動物愛護と福祉の向上','動物飼養者の決定権の尊重','自己の健康保持と増進','治療方針の決定','公衆衛生への貢献'],a:4,e:'治療方針の決定は獣医師の業務であり、倫理綱領には規定されていません。'},
+  {no:23,q:'生検組織の固定液として最も一般的なのはどれか。',o:['メタノール','エタノール','アセトン','酢酸','ホルマリン'],a:5,e:'生検組織の固定には10%中性緩衝ホルマリンが最も一般的に使用されます。'},
+  {no:24,q:'組織液が組織間隙に多量に貯留した状態はどれか。',o:['水腫','梗塞','脱水','虚血','充血'],a:1,e:'浮腫（水腫/edema）は組織間隙に組織液が過剰に貯留した状態です。'},
+  {no:25,q:'合成抗菌薬を2.5%（w/v）含む注射液2mL中の薬剤含有量はどれか。',o:['0.5mg','2.5mg','5mg','25mg','50mg'],a:5,e:'2.5%×2mL=0.05g=50mgです。'},
+  {no:26,q:'細菌の構造でないのはどれか。',o:['細胞壁','エンベロープ','プラスミド','線毛','鞭毛'],a:2,e:'エンベロープはウイルスの構造。細菌は細胞壁・プラスミド・線毛・鞭毛を持ちます。'},
+  {no:27,q:'糞便検査で虫卵を検出できない寄生虫はどれか。',o:['猫回虫','犬鞭虫','犬鉤虫','犬糸状虫','マンソン裂頭条虫'],a:4,e:'犬糸状虫（フィラリア）は血管内寄生虫で、糞便検査では検出できません。'},
+  {no:28,q:'猫伝染性腹膜炎（FIP）の原因となるウイルスの分類はどれか。',o:['パルボウイルス','ヘルペスウイルス','アデノウイルス','レトロウイルス','コロナウイルス'],a:5,e:'FIPは猫コロナウイルス（FCoV）が変異したFIPVが原因です。'},
+  {no:29,q:'6%次亜塩素酸ナトリウム溶液50mLを希釈して0.1%消毒液を作製した。何Lできたか。',o:['1L','1.5L','3L','6L','15L'],a:3,e:'6%×50mL=0.1%×V。V=3000mL=3Lです。'},
+  {no:30,q:'細菌性食中毒でないのはどれか。',o:['カンピロバクター食中毒','セレウス食中毒','腸炎ビブリオ食中毒','アニサキス食中毒','サルモネラ食中毒'],a:4,e:'アニサキスは線虫（寄生虫）による食中毒で、細菌性ではありません。'},
+  {no:31,q:'体表リンパ節でないのはどれか。',o:['浅頚リンパ節','胸骨リンパ節','腋窩リンパ節','鼠径リンパ節','膝窩リンパ節'],a:2,e:'胸骨リンパ節は体腔内（胸腔）のリンパ節です。'},
+  {no:32,q:'皮下注射の略語はどれか。',o:['IV','IM','IC','IP','SC'],a:5,e:'SC=Subcutaneous（皮下）。IV=静脈内、IM=筋肉内、IP=腹腔内です。'},
+  {no:33,q:'ツルゴール反応で評価できるのはどれか。',o:['衰弱','黄疸','貧血','脱水','下痢'],a:4,e:'ツルゴール反応（皮膚の弾力性テスト）は脱水の程度を評価します。'},
+  {no:34,q:'オシロメトリック法による犬の血圧測定部位でないのはどれか。',o:['頚部','上腕部','前腕部','肢端部','尾根部'],a:1,e:'オシロメトリック法は手足・尾部などで測定します。頚部は一般的ではありません。'},
+  {no:35,q:'X線透過性の最も高い臓器はどれか。',o:['肺','心臓','肝臓','骨','脂肪組織'],a:1,e:'肺は空気を多く含むためX線透過性が最も高く、画像では黒く映ります。'},
+  {no:36,q:'麻酔看視項目の中で、感覚によって評価するのはどれか。',o:['麻酔ガス濃度','体温','股動脈圧','動脈血酸素飽和度','呼気終末二酸化炭素濃度'],a:3,e:'股動脈の脈拍は指先で触診（感覚）することで評価できます。'},
+  {no:37,q:'獣医師の指示の下、愛玩動物看護師が行える業務はどれか。',o:['薬の処方','死亡判定','診断書交付','静脈採血','レントゲン照射'],a:4,e:'静脈採血は獣医師の指示のもとで行える診療補助業務です。'},
+  {no:38,q:'貧血で現れる特徴的な臨床徴候はどれか。',o:['便秘','跛行','可視粘膜蒼白','多飲多尿','食欲亢進'],a:3,e:'貧血では赤血球（ヘモグロビン）が減少し、歯茎・結膜などが蒼白になります。'},
+  {no:39,q:'うっ血性心不全の症状でないのはどれか。',o:['運動不耐性','発咳','発熱','浮腫','腹水貯留'],a:3,e:'発熱は炎症・感染症の症状で心不全の直接症状ではありません。'},
+  {no:40,q:'犬の先天性疾患はどれか。',o:['犬糸状虫症','動脈管開存症','子宮蓄膿症','前立腺肥大症','膿皮症'],a:2,e:'動脈管開存症（PDA）は出生後に動脈管が閉鎖しない先天性心疾患です。'},
+  {no:41,q:'インスリノーマが原発する臓器はどれか。',o:['脳','心臓','膵臓','腎臓','膀胱'],a:3,e:'インスリノーマは膵臓のβ細胞由来の腫瘍で、過剰なインスリン産生により低血糖を起こします。'},
+  {no:42,q:'成長期の小型犬に多い疾患はどれか。',o:['膝蓋骨脱臼','変形性関節症','馬尾症候群','椎間板ヘルニア','骨肉腫'],a:1,e:'膝蓋骨脱臼（パテラ）はチワワ・トイプードルなどの小型犬の成長期に多い疾患です。'},
+  {no:43,q:'検体検査でないのはどれか。',o:['血液検査','尿検査','糞便検査','細胞診検査','心電図検査'],a:5,e:'心電図検査は生理機能検査であり、検体（サンプル）を採取・分析する検体検査ではありません。'},
+  {no:44,q:'健常な成犬の末梢血液中で最も多い白血球はどれか。',o:['好中球','好酸球','好塩基球','リンパ球','単球'],a:1,e:'犬の白血球分画は好中球が60〜70%と最多です。'},
+  {no:45,q:'PCR法で増幅されるのはどれか。',o:['消化酵素','遺伝子','血液凝固因子','脂肪酸','アミノ酸'],a:2,e:'PCR（ポリメラーゼ連鎖反応）法は特定のDNA配列を体外で増幅する技術です。'},
+  {no:46,q:'愛玩動物看護師が飼い主とコミュニケーションを図る際に適切なのはどれか。',o:['反論する。','専門用語を多く使う。','長く話す。','無表情で会話する。','傾聴を重視する。'],a:5,e:'コミュニケーションの基本は傾聴です。飼い主の不安や意向を丁寧に聞くことが重要です。'},
+  {no:47,q:'ウサギの特徴に関する記述として誤っているのはどれか。',o:['草食動物である。','汗腺が発達している。','カルシウム尿がみられる。','切歯と臼歯は常生歯である。','盲腸便を食糞する。'],a:2,e:'ウサギは汗腺がほとんど発達していません。体温調節は耳介の血管放熱と呼吸によって行います。'},
+  {no:48,q:'家畜化が最も早かった動物はどれか。',o:['馬','牛','山羊','犬','猫'],a:4,e:'犬は約1万5千年前以上に家畜化された最古の家畜です。'},
+  {no:49,q:'「動物の愛護及び管理に関する法律」に規定されていないのはどれか。',o:['動物飼養者の責務','身体障害者補助犬の育成と提供','愛護動物の虐待罪','特定動物の飼養規制','動物取扱業者の規制'],a:2,e:'身体障害者補助犬の育成と提供は「身体障害者補助犬法」に規定されており、動愛法には含まれません。'},
+  {no:50,q:'日本における直近10年のペットの飼育に関する記述として正しいのはどれか。',o:['エキゾチックアニマルの人気が低下している。','ペットの市場規模は縮小している。','犬の飼育頭数は減少している。','ペット保険の加入数は減少している。','猫の飼育頭数は大きく増加している。'],a:3,e:'近年、犬の飼育頭数は減少傾向にある一方、猫の飼育数は増加・ペット市場は拡大しています。'},
+];
+const Y4=[
+  {no:1,q:'動物福祉に関する説明として正しいのはどれか。',o:['愛玩動物の愛護について助言する。','希少動物の繁殖を積極的に行う。','人が動物を一方的に支配する。','動物が幸福な生活ができるよう配慮する。','人間のための動物利用は一切行わない。'],a:4,e:'動物福祉は動物が幸福な生活を送れるよう配慮する考え方です。'},
+  {no:2,q:'アニマルホーディングの説明として正しいのはどれか。',o:['ペットとの死別の際に感じる悲しみや喪失感','絶滅危惧種の動物を捕獲する禁止行為','災害時にペットと一緒に避難する行動','動物を過剰頭数飼育し適正飼養が不可能な状態','動物が本来持つ行動ができるための環境整備'],a:4,e:'アニマルホーディングとは動物を過剰頭数飼育し適正飼養が不可能な状態を指します。'},
+  {no:3,q:'電子伝達系をもち酸素を消費してATP産生を行う細胞小器官はどれか。',o:['ミトコンドリア','小胞体','ゴルジ体','リソソーム','核'],a:1,e:'ミトコンドリアは電子伝達系でATPを産生する細胞の「発電所」です。'},
+  {no:4,q:'心臓の構造に含まれるのはどれか。',o:['ハバース管','アウエルバッハ神経叢','水晶体','洞房結節','腺房'],a:4,e:'洞房結節は心臓の刺激伝導系の起点（ペースメーカー）です。'},
+  {no:5,q:'呼吸中枢があるのはどれか。',o:['大脳','中脳','間脳','小脳','延髄'],a:5,e:'呼吸中枢は延髄にあります。'},
+  {no:6,q:'一般的な犬の後臼歯の数はどれか。',o:['4','10','12','26','28'],a:2,e:'犬の後臼歯は上顎2本×2＋下顎3本×2＝10本です。'},
+  {no:7,q:'大腸を構成する部位の組合せはどれか。',o:['十二指腸－空腸－回腸','十二指腸－回腸－結腸','回腸－結腸－盲腸','回腸－結腸－直腸','盲腸－結腸－直腸'],a:5,e:'大腸は盲腸・結腸・直腸で構成されます。'},
+  {no:8,q:'交感神経節後ニューロンの末端から分泌される神経伝達物質はどれか。',o:['リパーゼ','ビリルビン','プロトロンビン','ガストリン','ノルアドレナリン'],a:5,e:'交感神経節後ニューロンの末端からはノルアドレナリンが分泌されます。'},
+  {no:9,q:'交尾排卵動物はどれか。',o:['猫','犬','馬','牛','豚'],a:1,e:'猫は交尾刺激によって排卵が誘起される交尾排卵動物です。'},
+  {no:10,q:'母乳の産生に最も関与するホルモンはどれか。',o:['プロラクチン','エストロゲン','テストステロン','アルドステロン','コルチゾール'],a:1,e:'プロラクチンは下垂体前葉から分泌され、乳腺の発達と乳汁産生を促進します。'},
+  {no:11,q:'犬の護身行動はどれか。',o:['遠吠え','アイコンタクト','グルーミング','マーキング','パンティング'],a:5,e:'パンティング（口を開けて速く浅く呼吸）は体温調節や緊張・不安時にみられます。護身行動に分類されます。'},
+  {no:12,q:'犬の問題行動の生得的因子はどれか。',o:['不適切な飼育環境','早すぎる離乳','飼い主とのミスマッチ','前駆徴候の放置','先天性の障害'],a:5,e:'先天性の障害は生得的（遺伝的・先天的）な因子です。環境・飼育などは後天的因子です。'},
+  {no:13,q:'脂溶性ビタミンはどれか。',o:['ビタミンB1','ビタミンＣ','ビタミンＤ','ナイアシン酸','パントテン酸'],a:3,e:'脂溶性ビタミンはA・D・E・K。ビタミンD（カルシフェロール）が該当します。'},
+  {no:14,q:'維持期エネルギー要求量の略語はどれか。',o:['GE','ME','DER','MER','RER'],a:4,e:'MER（Maintenance Energy Requirement）は維持期エネルギー要求量の略語です。'},
+  {no:15,q:'食物アレルギーの除去食試験によく用いられるのはどれか。',o:['低脂肪食','低ナトリウム食','リン制限食','低タンパク食','新奇タンパク食'],a:5,e:'除去食試験では、これまで与えたことのない新奇タンパク質（加水分解タンパクも含む）のフードを使用します。'},
+  {no:16,q:'気嚢を有する動物はどれか。',o:['牛','豚','馬','鶏','めん羊'],a:4,e:'気嚢は鳥類特有の呼吸補助器官で、鶏など鳥類に存在します。'},
+  {no:17,q:'ビタミンＣを合成できない動物はどれか。',o:['ウサギ','ラット','モルモット','マウス','ハムスター'],a:3,e:'モルモットはヒトと同様にビタミンC（アスコルビン酸）を体内合成できません。'},
+  {no:18,q:'「愛玩動物看護師法」において、愛玩動物看護師が診療の補助を行うことができる動物はどれか。',o:['ウサギ','ハムスター','フェレット','猫','ハト'],a:4,e:'愛玩動物看護師法で業務対象となる動物は犬・猫（および政令指定動物）です。'},
+  {no:19,q:'愛玩動物看護師の業務はどれか。\nａ：入院動物の世話　ｂ：医薬品の処方　ｃ：疾患の診断　ｄ：治療法の選択　ｅ：適正飼養の指導',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:5,e:'入院動物の世話と適正飼養の指導が愛玩動物看護師の業務です。処方・診断・治療法選択は獣医師の業務です。'},
+  {no:20,q:'循環障害により起きる現象はどれか。',o:['異形成','萎縮','水腫','過形成','混濁腫脹'],a:3,e:'水腫（浮腫）は循環障害（静脈圧上昇や低アルブミン血症など）により組織間隙に液体が貯留する状態です。'},
+  {no:21,q:'ワクチンの副反応で生命を脅かす危険な症状はどれか。',o:['かゆみ','軟便','皮下水腫','呼吸困難','紅斑'],a:4,e:'アナフィラキシーショックによる呼吸困難は生命を脅かす最重大の副反応です。'},
+  {no:22,q:'フィラリアの予防薬でないのはどれか。',o:['イベルメクチン','シメチジン','ミルベマイシンオキシム','モキシデクチン','セラメクチン'],a:2,e:'シメチジンは胃酸分泌抑制薬（H2ブロッカー）であり、フィラリア予防薬ではありません。'},
+  {no:23,q:'犬で溶血を引き起こす代表的な病原体はどれか。',o:['バベシア','ジアルジア','トリコモナス','トキソプラズマ','レジオネラ'],a:1,e:'バベシアはマダニが媒介する原虫で、赤血球内に寄生し溶血性貧血を引き起こします。'},
+  {no:24,q:'近年、日本国内の養豚場での発生が報告され、重大な産業的被害を生じている感染症はどれか。',o:['旋毛虫症','ブルセラ症','豚熱','アフリカ豚熱','日本脳炎'],a:3,e:'豚熱（CSF）は近年日本国内で発生が報告されている豚・イノシシの法定伝染病です。'},
+  {no:25,q:'病原体の封じ込めを意味するのはどれか。',o:['バイオセーフティ','バイオエネルギー','バイオハザード','バイオテロリズム','バイオテクノロジー'],a:1,e:'バイオセーフティとは病原体を安全に封じ込め、外部への漏出を防ぐことです。'},
+  {no:26,q:'視診を用いるアセスメント項目はどれか。',o:['BCS','血圧','体温','脈拍数','心拍数'],a:1,e:'BCS（ボディコンディションスコア）は視診と触診で体の充実度を評価します。'},
+  {no:27,q:'体表から触知可能なリンパ節はどれか。',o:['気管支リンパ節','門脈リンパ節','腸間膜リンパ節','腎門リンパ節','膝窩リンパ節'],a:5,e:'膝窩リンパ節は膝の裏側に位置し、体表から触知可能なリンパ節です。'},
+  {no:28,q:'歯肉を指で押して白くなった部分が元の色に戻るまでの時間を表わすのはどれか。',o:['CBC','CPD','CRP','CRT','CVP'],a:4,e:'CRT（毛細血管再充満時間）は末梢循環を評価する指標です。'},
+  {no:29,q:'超音波検査の目的として適切でないのはどれか。',o:['心臓の機能的評価','肺腫瘍の悪性度評価','肝臓の内部構造評価','体腔内の液体貯留評価','臓器内血管の血流評価'],a:2,e:'超音波は空気（肺）を通過しないため、肺腫瘍の悪性度評価には不適切です。'},
+  {no:30,q:'手術前の動物の毛刈りを行う場所として適切なのはどれか。',o:['待合室','手術室','回復室','手術準備室','集中治療室'],a:4,e:'毛刈りは被毛・細菌の汚染を防ぐため手術準備室（処置室）で行います。'},
+  {no:31,q:'日本の小動物臨床で最も多く用いられている吸入麻酔薬はどれか。',o:['イソフルラン','エーテル','クロロホルム','ハロタン','メトキシフルラン'],a:1,e:'イソフルランは安全性が高く、日本の小動物臨床で最も広く使用されている吸入麻酔薬です。'},
+  {no:32,q:'天然素材の縫合糸はどれか。',o:['グリコライド','ステンレススチール','ポリアミド','ポリエステル','ポリジオキサノン'],a:2,e:'ステンレススチール（金属）は天然素材です。グリコライド等は合成素材です。'},
+  {no:33,q:'動物看護記録の内容として適切でないのはどれか。',o:['飼い主からの情報','動物の様子','処置内容','動物看護上の問題点','個人的感想'],a:5,e:'動物看護記録には客観的な事実のみを記載します。個人的感想は不適切です。'},
+  {no:34,q:'犬で横臥位における褥瘡の好発部位はどれか。',o:['後頭部','大転子部','仙骨部','尾骨部','踵部'],a:2,e:'大転子部は横臥時に体重がかかる骨突出部であり、褥瘡の好発部位です。'},
+  {no:35,q:'ターミナルケアの目的はどれか。',o:['疾病の完治','余命の延長','QOLの向上','入院日数の短縮','積極的な治療'],a:3,e:'ターミナルケア（終末期ケア）の目的はQOL（生活の質）の向上と苦痛緩和です。'},
+  {no:36,q:'流涎において、過度に流れ出ているのはどれか。',o:['涙','鼻汁','唾液','尿','糞便'],a:3,e:'流涎（りゅうぜん）とは唾液が過度に口から流れ出ることです。'},
+  {no:37,q:'吐出がみられる疾患はどれか。',o:['気管支炎','肺炎','胃炎','巨大食道症','リンパ管拡張症'],a:4,e:'吐出（逆流）は食道の問題（食道拡張・食道炎・巨大食道症など）で起こります。胃の問題は嘔吐です。'},
+  {no:38,q:'ホルモン分泌の過剰によって起こる疾患はどれか。',o:['巨大結腸症','クッシング症候群','気管虚脱','尿崩症','アジソン病'],a:2,e:'クッシング症候群（副腎皮質機能亢進症）はコルチゾールの過剰分泌によって起こります。'},
+  {no:39,q:'犬の良性前立腺肥大症の予防に推奨されるのはどれか。',o:['去勢手術','精管結紮','尿道造瘻','膀胱切開','腎臓摘出'],a:1,e:'良性前立腺肥大症はテストステロン依存性のため、去勢手術（精巣摘出）が予防・治療として推奨されます。'},
+  {no:40,q:'緊急疾患はどれか。',o:['熱中症','膿皮症','歯石症','外耳炎','白内障'],a:1,e:'熱中症は短時間で致死的となりうる緊急疾患です。'},
+  {no:41,q:'健常な成犬の末梢血液中で数が最も少ない白血球はどれか。',o:['好中球','好酸球','好塩基球','リンパ球','単球'],a:3,e:'好塩基球は白血球分画で最少（0〜1%）です。'},
+  {no:42,q:'肝細胞障害の指標となる血液検査項目はどれか。',o:['クレアチンキナーゼ（CK）','アラニントランスアミナーゼ（ALT）','サイロキシン（T4）','クレアチニン（Cre）','トリプシン様免疫活性（TLI）'],a:2,e:'ALT（アラニントランスアミナーゼ）は犬猫の肝細胞障害で上昇する肝特異的酵素です。'},
+  {no:43,q:'飼い主の感情や経験を理解し、自分自身のことのように感じ伝えるのはどれか。',o:['接遇','共感','同情','受容','支持'],a:2,e:'共感（エンパシー）は相手の感情を自分のことのように感じ、理解し伝えることです。'},
+  {no:44,q:'アメリカ原産の猫の品種はどれか。',o:['メイン・クーン','スコティッシュ・フォールド','ソマリ','アビシニアン','ペルシャ'],a:1,e:'メイン・クーンはアメリカ（メイン州）原産の猫の品種です。'},
+  {no:45,q:'牧羊犬・牧畜犬はどれか。',o:['アフガン・ハウンド','ウェルシュ・コーギー・ペンブローク','日本スピッツ','ボルゾイ','ワイマラナー'],a:2,e:'ウェルシュ・コーギー・ペンブロークは牧畜犬（ハーディングドッグ）です。'},
+  {no:46,q:'「身体障害者補助犬法」における補助犬はどれか。',o:['警察犬','救助犬','介助犬','探知犬','セラピー犬'],a:3,e:'身体障害者補助犬法で定められる補助犬は盲導犬・聴導犬・介助犬の3種です。'},
+  {no:47,q:'日本において、人と動物の関係に関する記述として正しいのはどれか。',o:['近年犬と猫の合計飼育頭数は15歳未満の人口を上回る。','愛護動物を遺棄しても罰せられることはない。','犬と猫の飼育頭数は近年ともに増加傾向にある。','野生動物もすべてペットとして飼育できる。','動物介在活動に使われる動物種は犬のみである。'],a:1,e:'近年、犬猫の合計飼育頭数は15歳未満の子どもの人口を上回っています。'},
+  {no:48,q:'学校飼育動物に対する愛玩動物看護師の役割として誤っているのはどれか。',o:['動物種選択の助言','飼育環境の指導','適正飼養の指導','飼育費の援助','衛生指導'],a:4,e:'飼育費の援助は愛玩動物看護師の役割ではありません。'},
+  {no:49,q:'犬や猫へのマイクロチップの装着に関する記述として正しいのはどれか。',o:['TNR活動において義務化されている。','装着部位は頭頂部に決められている。','犬猫等販売業者に義務化されている。','獣医師のみが装着できる。','装着後は地域の保健所に登録する。'],a:3,e:'動愛法改正により犬猫等販売業者によるマイクロチップ装着と登録が義務化されました。'},
+  {no:50,q:'犬の飼い主が平時にできる防災対策として適切でないのはどれか。',o:['同行避難できる場所の確認','リードを付けない歩行の練習','去勢・不妊手術の実施','様々な場所への適応','マイクロチップの装着'],a:2,e:'災害時の迷子・逃走防止のため、リードなしの歩行は不適切な防災対策です。'},
+];
+
+// ---- 国家試験 ----
+const K1=[
+  {no:1,q:'愛玩動物の虐待におけるネグレクトはどれか。',o:['けがを放置する。','蹴る。','酷使する。','拘束する。','恐怖感を与える。'],a:1,e:'ネグレクト（放棄・怠慢）は適切なケアをしないことです。けがを放置するのがネグレクトです。'},
+  {no:2,q:'動物の細胞小器官でないのはどれか。',o:['核','細胞膜','葉緑体','ミトコンドリア','小胞体'],a:3,e:'葉緑体は植物細胞に存在し、動物細胞には存在しません。'},
+  {no:3,q:'猫の歯式はどれか。',o:['切歯3/3 犬歯1/1 前臼歯4/4 後臼歯2/3','切歯3/3 犬歯1/1 前臼歯3/2 後臼歯1/1','切歯0/4 犬歯0/0 前臼歯3/3 後臼歯3/3','切歯2/1 犬歯0/0 前臼歯3/2 後臼歯3/3','切歯3/3 犬歯1/1 前臼歯4/4 後臼歯3/3'],a:2,e:'猫の永久歯歯式は切歯3/3・犬歯1/1・前臼歯3/2・後臼歯1/1で合計30本です。'},
+  {no:4,q:'糖質コルチコイドを産生する臓器はどれか。',o:['肺','骨髄','肝臓','腎臓','副腎'],a:5,e:'副腎皮質からコルチゾール（糖質コルチコイド）が産生されます。'},
+  {no:5,q:'内分泌腺はどれか。',o:['胃腺','アポクリン腺','耳下腺','甲状腺','腸陰窩'],a:4,e:'甲状腺は導管を持たず分泌物を直接血液に送る内分泌腺です。'},
+  {no:6,q:'糸球体が存在する臓器はどれか。',o:['子宮','卵巣','腎臓','膵臓','副腎'],a:3,e:'糸球体は腎臓のネフロンを構成する毛細血管の塊です。'},
+  {no:7,q:'卵巣で産生されるホルモンはどれか。',o:['インスリン','エストロゲン','オキシトシン','サイロキシン','メラトニン'],a:2,e:'エストロゲン（卵胞ホルモン）は卵巣の顆粒膜細胞・黄体で産生されます。'},
+  {no:8,q:'第2脳神経はどれか。',o:['視神経','動眼神経','迷走神経','嗅神経','三叉神経'],a:1,e:'第II脳神経は視神経です。嗅神経は第I、動眼神経は第IIIです。'},
+  {no:9,q:'通常、雌において、左右4対の乳房をもつ動物はどれか。',o:['豚','馬','牛','犬','猫'],a:5,e:'猫は左右4対（計8個）の乳房を持つのが一般的です。'},
+  {no:10,q:'季節繁殖動物はどれか。',o:['牛','犬','鶏','豚','馬'],a:5,e:'馬は春（長日）に発情する季節繁殖動物です。犬・猫（短日）も季節繁殖動物に含まれます。'},
+  {no:11,q:'身づくろい行動（グルーミング）の機能でないのはどれか。',o:['清潔の維持','体温の維持','感染の予防','防水機能の維持','食欲の増進'],a:5,e:'グルーミングは清潔・体温調節・感染予防・防水機能維持のために行われます。食欲増進は含まれません。'},
+  {no:12,q:'犬および猫の攻撃行動の治療法として適切でないのはどれか。',o:['環境修正','行動修正','去勢','薬物療法','脳手術'],a:5,e:'攻撃行動の治療として脳手術は倫理的にも適切ではありません。'},
+  {no:13,q:'脂溶性ビタミンはどれか。',o:['ビタミンＡ','ビタミンB1','ビタミンＣ','葉酸','ニコチン酸'],a:1,e:'脂溶性ビタミンはA・D・E・K。ビタミンAが該当します。'},
+  {no:14,q:'ウサギの品種はどれか。',o:['ヒマラヤン','ロップイヤー','メインクーン','ラサ・アプソ','ウィペット'],a:2,e:'ロップイヤーはウサギの品種（垂れ耳）。ヒマラヤンは猫、メインクーンは猫、他は犬です。'},
+  {no:15,q:'牛の品種でないのはどれか。',o:['ホルスタイン','サフォーク','ブラウン・スイス','ガンジー','ジャージー'],a:2,e:'サフォークはめん羊の品種です。他は全て牛の品種です。'},
+  {no:16,q:'「狂犬病予防法」を主に所管する機関はどれか。',o:['厚生労働省','農林水産省','環境省','経済産業省','内閣府'],a:1,e:'狂犬病予防法は厚生労働省が所管しています。'},
+  {no:17,q:'「動物の愛護及び管理に関する法律」が規定する愛護動物でないのはどれか。',o:['鯉','めん羊','牛','鶏','あひる'],a:1,e:'鯉（魚類）は愛護動物に含まれません。愛護動物は哺乳類・鳥類・爬虫類です。'},
+  {no:18,q:'「絶滅のおそれのある野生動植物の種の国際取引に関する条約」の通称はどれか。',o:['バーゼル条約','パリ条約','ラムサール条約','ロンドン条約','ワシントン条約'],a:5,e:'ワシントン条約（CITES）は絶滅危惧種の国際取引を規制する条約です。'},
+  {no:19,q:'愛玩動物看護師の業務でないのはどれか。',o:['獣医師の指示のもとに行われる診療の補助','診断と治療方針の決定','疾病に罹患した愛玩動物の世話と看護','動物介在活動における技術提供と指導','愛玩動物の愛護および適正飼養にかかわる助言と支援'],a:2,e:'診断と治療方針の決定は獣医師の業務です。'},
+  {no:20,q:'病理組織標本について必ず実施する染色法はどれか。',o:['ヘマトキシリン・エオジン（HE）染色','アザン染色','PAS染色','コッサ染色','アルシアン・ブルー染色'],a:1,e:'HE（ヘマトキシリン・エオジン）染色は病理組織標本の基本染色です。'},
+  {no:21,q:'水腫に関する記述として正しいのはどれか。',o:['唾液の分泌過剰症である。','心不全が原因のひとつである。','水分を多く含む腫瘍である。','肺のみでみとめられる。','血液が溜まることをいう。'],a:2,e:'水腫（浮腫）の原因には心不全・低アルブミン血症・リンパ管閉塞などがあります。'},
+  {no:22,q:'膿瘍内に多数みられる白血球はどれか。',o:['好酸球','好中球','好塩基球','リンパ球','単球'],a:2,e:'膿瘍（膿の集まり）は主に好中球が集まった結果です。'},
+  {no:23,q:'抗悪性腫瘍薬はどれか。',o:['アンピシリン','ワルファリン','プロポフォール','ドキソルビシン','フロセミド'],a:4,e:'ドキソルビシン（アドリアマイシン）は抗がん剤（アントラサイクリン系）です。'},
+  {no:24,q:'瓜実条虫の感染を媒介する生物はどれか。',o:['コロモシラミ','ヤブカ','ヒゼンダニ','ネコノミ','ノイエバエ'],a:4,e:'瓜実条虫（Dipylidium caninum）はネコノミ・イヌノミが中間宿主となり感染します。'},
+  {no:25,q:'プリオン病でないのはどれか。',o:['牛海綿状脳症','スクレイピー','クールー','慢性消耗病','ブルセラ症'],a:5,e:'ブルセラ症は細菌（Brucella属）による感染症であり、プリオン病ではありません。'},
+  {no:26,q:'猫パルボウイルス感染症の典型的な症状はどれか。',o:['腹水貯留','口内炎','角膜炎','白血球減少','黄疸'],a:4,e:'猫汎白血球減少症（猫パルボウイルス感染症）の特徴は白血球（特に顆粒球）の急激な減少です。'},
+  {no:27,q:'犬の疥癬症をおこす病原体はどれか。',o:['皮膚糸状菌','イヌノミ','毛包虫','マラセチア','イヌセンコウヒゼンダニ'],a:5,e:'犬疥癬（ヒゼンダニ症）はSarcoptes scabiei var. canisによって起こります。'},
+  {no:28,q:'抗体を産生する細胞はどれか。',o:['好中球','血小板','単球','Tリンパ球','形質細胞'],a:5,e:'形質細胞（プラズマ細胞）はB細胞が分化したもので、抗体（免疫グロブリン）を産生します。'},
+  {no:29,q:'ウイルスによる人獣共通感染症はどれか。',o:['破傷風','ジステンパー','日本脳炎','アスペルギルス症','炭疽'],a:3,e:'日本脳炎は日本脳炎ウイルス（フラビウイルス科）による人獣共通感染症です。蚊が媒介します。'},
+  {no:30,q:'病原体などにより引きおこされる生物への危険性を表す用語はどれか。',o:['バイオセイフティー','バイオテロリズム','バイオハザード','バイオセキュリティー','バイオテクノロジー'],a:3,e:'バイオハザードは病原微生物や毒素などの生物的危険性を指します。'},
+  {no:31,q:'放射線を用いる検査はどれか。',o:['CT検査','MRI検査','超音波検査','心電図検査','脳波検査'],a:1,e:'CT検査はX線（放射線）を使用します。MRIは磁気、超音波検査は超音波を使用します。'},
+  {no:32,q:'高圧蒸気滅菌法が適用されるのはどれか。',o:['プラスチック製カテーテル','手術用手袋','吸収性縫合糸','生理食塩水','血液製剤'],a:4,e:'生理食塩水はオートクレーブによる高圧蒸気滅菌が可能です。'},
+  {no:33,q:'吸収性縫合糸の素材はどれか。',o:['綿糸','ポリグリコネート','絹糸','ステンレススチール','ポリエステル'],a:2,e:'ポリグリコネートは合成吸収性縫合糸です。綿糸・絹糸は天然非吸収性です。'},
+  {no:34,q:'診療録（カルテ）に記載する必要がない事項はどれか。',o:['動物の名称','診療した年月日','飼い主の住所','動物の主要症状','飼い主の年収'],a:5,e:'飼い主の年収は診療録への記載義務がありません。'},
+  {no:35,q:'消化器疾患の動物を看護する際に、優先度が最も低い評価項目はどれか。',o:['嚥下','糞便','嘔吐','排尿','食欲'],a:4,e:'消化器疾患の看護では排尿より嚥下・嘔吐・糞便・食欲の評価が優先されます。'},
+  {no:36,q:'吐出の原因はどれか。',o:['胃潰瘍','胆石症','膵炎','腸閉塞','食道狭窄'],a:5,e:'吐出（逆流）は食道の問題によって起こります。食道狭窄が原因となります。'},
+  {no:37,q:'肝疾患の代表的症状はどれか。',o:['多尿','白血球増加','黄疸','高血圧','下痢'],a:3,e:'黄疸は肝臓のビリルビン代謝障害により皮膚・粘膜が黄染する肝疾患の代表的症状です。'},
+  {no:38,q:'皮膚や粘膜が青紫色になることはどれか。',o:['チアノーゼ','ケトアシドーシス','フレグモーネ','アナフィラキシー','エリテマトーデス'],a:1,e:'チアノーゼは還元ヘモグロビンの増加により皮膚・粘膜が青紫色になる状態です。'},
+  {no:39,q:'副腎皮質機能亢進を示す疾患はどれか。',o:['レプトスピラ症','ウォブラー症候群','クッシング症候群','ファロー四徴症','アジソン病'],a:3,e:'クッシング症候群（副腎皮質機能亢進症）はコルチゾール過剰分泌で起こります。'},
+  {no:40,q:'水頭症の好発犬種はどれか。',o:['ゴールデン・レトリーバー','柴','チワワ','秋田','ボーダー・コリー'],a:3,e:'水頭症はチワワなどの小型犬・短頭種に好発します。'},
+  {no:41,q:'ショックの症状はどれか。',o:['血圧低下','脈拍上昇','発熱','過呼吸','筋緊張'],a:1,e:'ショックの主要症状は血圧低下・頻脈・末梢循環不全・意識障害などです。'},
+  {no:42,q:'取り扱う人に対して厳密な曝露防止が必要な薬剤はどれか。',o:['利尿薬','抗潰瘍薬','抗悪性腫瘍薬','抗アレルギー薬','止血薬'],a:3,e:'抗悪性腫瘍薬（抗がん剤）は細胞毒性が強く、取り扱う人への曝露防止が必要です。'},
+  {no:43,q:'最も数が多い血液細胞はどれか。',o:['赤血球','好中球','血小板','リンパ球','好酸球'],a:1,e:'赤血球は血液細胞の中で最も数が多く（犬で約600〜800万/µL）です。'},
+  {no:44,q:'腎機能検査で測定する項目はどれか。',o:['ALP','ALT','AST','CRE','CPK'],a:4,e:'クレアチニン（CRE/Cre）は腎臓のGFRを反映する腎機能検査の指標です。'},
+  {no:45,q:'飼い主との面接において、重要な技法である「傾聴」に関連しないのはどれか。',o:['あいづち','繰り返し','共感','積極性','支持'],a:4,e:'傾聴の技法にはあいづち・繰り返し・共感・支持・沈黙などがあります。「積極性」は含まれません。'},
+  {no:46,q:'飼い主との面接において、愛玩動物看護師が行う「開かれた質問」はどれか。',o:['どうされましたか。','食欲はありますか。','熱はありますか。','いつから始まりましたか。','どこが痛そうですか。'],a:1,e:'「どうされましたか」は自由に答えられる開かれた質問です。他はYes/Noで答えられる閉じた質問です。'},
+  {no:47,q:'動物病院において、愛玩動物看護師の管理対象でないのはどれか。',o:['麻薬','廃液','手術器具','輸液ポンプ','空調'],a:1,e:'麻薬は獣医師が厳重に管理する必要があり、愛玩動物看護師の管理対象ではありません。'},
+  {no:48,q:'薬用シャンプーの際に行ってはいけないのはどれか。',o:['あらかじめブラッシングする。','二度洗いする。','体温より高い湯を用いる。','シャンプー液を泡立て体にすり込む。','5分程度静置してから洗い流す。'],a:3,e:'体温より高い湯は皮膚への刺激が強く、薬剤の効果にも影響するため不適切です。'},
+  {no:49,q:'仕事において善悪を判断する際に、人として守るべきことはどれか。',o:['職業倫理','職業慣行','職業体験','職業訓練','職業選択'],a:1,e:'職業倫理とは、仕事において善悪を判断する際に人として守るべき道徳的規範です。'},
+  {no:50,q:'他の施設で生まれ育った動物を譲り受けて販売する場合、輸送された犬または猫について、観察しなければならない期間はどれか。',o:['輸送後1時間以上','輸送後半日以上','輸送後2日間以上','輸送後1週間以上','輸送後8週間以上'],a:3,e:'動愛法により、輸送後は健康確認のため2日間以上の観察が義務づけられています。'},
+];
+const K2=[
+  {no:1,q:'動物福祉（アニマルウェルフェア）に関する記述として正しいのはどれか。',o:['動物を人間社会のために一切利用しないこと','動物の必要な欲求を満たし幸福に配慮すること','動物をかわいがり庇護すること','人と動物の権利を同等に扱うこと','動物に苦痛を与える行為を容認すること'],a:2,e:'動物福祉は動物の必要な欲求を満たし幸福な状態に配慮する考え方です。'},
+  {no:2,q:'タンパク質合成を行う細胞小器官はどれか。',o:['核','ゴルジ体','ミトコンドリア','リボソーム','中心体'],a:4,e:'リボソームはmRNAの情報に基づきタンパク質を合成します。'},
+  {no:3,q:'胃ではたらく消化酵素はどれか。',o:['トリプシン','ペプシン','アミラーゼ','ラクターゼ','マルターゼ'],a:2,e:'ペプシンは胃で産生・分泌されるタンパク質分解酵素です。'},
+  {no:4,q:'腎小体の構成要素の組合せはどれか。',o:['糸球体　ボウマン嚢','糸球体　集合管','ボウマン嚢　尿細管','ボウマン嚢　集合管','尿細管　集合管'],a:1,e:'腎小体は糸球体とボウマン嚢から構成されます。'},
+  {no:5,q:'甘味受容体を欠く動物はどれか。',o:['犬','ウサギ','猫','マウス','ラット'],a:3,e:'猫は甘味受容体（Tas1r2遺伝子）を持たないため、甘みを感じません。'},
+  {no:6,q:'一次止血に関わる血液成分はどれか。',o:['血小板','好中球','単球','好酸球','好塩基球'],a:1,e:'一次止血では血小板が傷ついた血管壁に粘着・凝集して血小板栓を形成します。'},
+  {no:7,q:'主として妊娠の維持にはたらくホルモンはどれか。',o:['エストロゲン','プロゲステロン','テストステロン','アルドステロン','コルチゾール'],a:2,e:'プロゲステロン（黄体ホルモン）は子宮内膜の維持と妊娠継続に不可欠です。'},
+  {no:8,q:'遺伝の様式で、その形質が次世代に必ず発現するのはどれか。',o:['顕性（優性）遺伝','潜性（劣性）遺伝','限性遺伝','伴性遺伝','致死遺伝'],a:1,e:'顕性（優性）遺伝では、1つの対立遺伝子があれば形質が必ず発現します。'},
+  {no:9,q:'猫でみられる親和的行動はどれか。',o:['爪とぎ','相互グルーミング','フレーメン','マウンティング','プレイバウ'],a:2,e:'相互グルーミング（アログルーミング）は猫の社会的絆を示す親和的行動です。'},
+  {no:10,q:'犬および猫に必要な微量ミネラルはどれか。',o:['カルシウム','リン','マグネシウム','鉄','カリウム'],a:4,e:'鉄は微量ミネラル（鉄・銅・亜鉛・マンガン・ヨウ素・セレンなど）に分類されます。'},
+  {no:11,q:'不飽和脂肪酸のうち、n-3（オメガ3）脂肪酸はどれか。',o:['エイコサペンタエン酸','オレイン酸','ガンマリノレン酸','アラキドン酸','リノール酸'],a:1,e:'EPA（エイコサペンタエン酸）はn-3系多価不飽和脂肪酸です。DHAも同様です。'},
+  {no:12,q:'二糖類はどれか。\nａ：グルコース　ｂ：フルクトース　ｃ：ガラクトース　ｄ：スクロース　ｅ：マルトース',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:4,e:'スクロース（砂糖）とマルトース（麦芽糖）が二糖類。グルコース・フルクトース・ガラクトースは単糖類です。'},
+  {no:13,q:'円錐結腸を有する動物はどれか。',o:['牛','犬','豚','馬','猫'],a:3,e:'豚は円錐結腸（コーン状結腸）を持つという解剖学的特徴があります。'},
+  {no:14,q:'侵略的外来生物はどれか。',o:['カモシカ','アライグマ','イリオモテヤマネコ','ライチョウ','オオサンショウウオ'],a:2,e:'アライグマは北米原産の侵略的外来種（特定外来生物）です。'},
+  {no:15,q:'「狂犬病予防法」の適用でない動物はどれか。',o:['猫','あらいぐま','ウサギ','きつね','スカンク'],a:3,e:'狂犬病予防法の適用動物は犬・猫・狐・タヌキ・アライグマ・スカンク・コウモリなど。ウサギは対象外です。'},
+  {no:16,q:'「身体障害者補助犬法」を所管する機関はどれか。',o:['内閣府','厚生労働省','環境省','消費者庁','農林水産省'],a:2,e:'身体障害者補助犬法は厚生労働省が所管しています。'},
+  {no:17,q:'「愛玩動物看護者の倫理綱領」に規定されていないのはどれか。',o:['動物に対する倫理と責任','飼養者に対する倫理と責任','獣医師に対する倫理と責任','動物看護実践と責任','社会に対する倫理と責任'],a:3,e:'獣医師に対する倫理は倫理綱領には規定されていません。'},
+  {no:18,q:'病理組織標本の作製過程で最初に行うのはどれか。',o:['包埋','脱水','封入','染色','固定'],a:5,e:'病理組織標本の作製は固定→脱水→透徹→包埋→薄切→染色→封入の順で行います。'},
+  {no:19,q:'不足すると糖尿病を引き起こすホルモンはどれか。',o:['エストロゲン','オキシトシン','インスリン','サイロキシン','アンドロゲン'],a:3,e:'インスリン不足（または作用不全）により血糖値が上昇し糖尿病が起こります。'},
+  {no:20,q:'代謝された薬物を体外へ排泄する主要な臓器はどれか。',o:['膵臓','腎臓','心臓','脾臓','副腎'],a:2,e:'代謝された薬物（水溶性代謝物）は主に腎臓から尿として排泄されます。'},
+  {no:21,q:'犬の問題行動の治療薬はどれか。',o:['クロミプラミン','フェノバルビタール','パンクロニウム','フェンタニル','プロポフォール'],a:1,e:'クロミプラミン（三環系抗うつ薬）は犬の分離不安などの問題行動治療に使用されます。'},
+  {no:22,q:'ウイルスの構成要素はどれか。',o:['細胞壁','ゴルジ体','遺伝子','ミトコンドリア','リボソーム'],a:3,e:'ウイルスは核酸（DNAまたはRNA）とタンパク質（カプシド）からなります。'},
+  {no:23,q:'犬の感染症で主に経口感染するのはどれか。',o:['犬糸状虫症','狂犬病','犬伝染性肝炎','バベシア症','日本住血吸虫症'],a:3,e:'犬伝染性肝炎（CAV-1）は主に感染犬の分泌物・排泄物を介した経口感染です。'},
+  {no:24,q:'原虫が原因の犬の感染症はどれか。',o:['犬ジステンパー','犬伝染性肝炎','レプトスピラ症','クリプトスポリジウム症','犬糸状虫症'],a:4,e:'クリプトスポリジウム症は原虫（Cryptosporidium）による消化器感染症です。'},
+  {no:25,q:'One Healthの考え方において、人の健康と相互に関連する健康の担い手はどれか。\nａ：環境　ｂ：動物　ｃ：政治　ｄ：経済　ｅ：教育',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:1,e:'ワンヘルスは「人・動物・環境」の健康を一体的に考えます。a（環境）とb（動物）が正解です。'},
+  {no:26,q:'動物病院から排出される廃棄物のうち産業廃棄物はどれか。\nａ：臓器　ｂ：凝固血液　ｃ：Ｘ線定着液　ｄ：小動物の死体　ｅ：被毛',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:2,e:'X線定着液（廃液）と動物の死体は産業廃棄物です。血液・臓器・被毛は感染性廃棄物です。'},
+  {no:27,q:'投薬に関する略語として1日2回を意味するのはどれか。',o:['QID','EOD','BID','SID','TID'],a:3,e:'BID（bis in die）は1日2回。SID=1日1回、TID=1日3回、QID=1日4回です。'},
+  {no:28,q:'X線検査時に女性が線量計を装着する部位はどれか。',o:['頭部','上腕部','前腕部','腹部','大腿部'],a:4,e:'妊娠中や妊娠可能な女性は腹部（子宮）への放射線被曝を特に把握するため腹部に装着します。'},
+  {no:29,q:'動物のMRI検査に関する記述として誤っているのはどれか。',o:['CT検査より撮像時間が長い。','防護服が必要である。','磁気を使って撮像する。','全身麻酔が必要である。','脳や脊髄の検査に有効である。'],a:2,e:'MRIは磁気を使用するため放射線防護服は不要です（金属持ち込み禁止などの対策は必要）。'},
+  {no:30,q:'手術チームで、直接補助を行う愛玩動物看護師の役割はどれか。',o:['麻酔看視','器具出し','執刀','輸液交換','縫合'],a:2,e:'器具出し（スクラブナース）は直接補助として術者に器具を渡す役割です。'},
+  {no:31,q:'皮膚の閉鎖に最も適した縫合針はどれか。',o:['鈍針','丸針','平型針','角針','直針'],a:4,e:'角針（三角針）は皮膚など密な組織を縫合するのに適しています。丸針は軟組織に適します。'},
+  {no:32,q:'手術者の手指の消毒に広く用いられているのはどれか。',o:['オキシドール','クロルヘキシジン','ホルマリン','過酢酸','次亜塩素酸ナトリウム'],a:2,e:'クロルヘキシジン（ヒビスクラブ等）は手術時の手指消毒に広く使用されます。'},
+  {no:33,q:'動物看護技術の実践において正しいのはどれか。',o:['得意なことを優先する。','必ずマニュアル通りに行う。','動物に恐怖を与える。','動物の観察を怠らない。','練習は必ず生体で行う。'],a:4,e:'動物看護実践では常に動物の状態を観察し、変化に気づくことが重要です。'},
+  {no:34,q:'感染症罹患動物の来院にあたり、愛玩動物看護師の対応として誤っているのはどれか。',o:['担当者を限定する。','必要な防護具を装着する。','廃棄物を適切に処理する。','隔離室を設ける。','来院を拒否する。'],a:5,e:'感染症罹患動物の来院を拒否することはできません。適切な感染対策を講じて対応します。'},
+  {no:35,q:'肝性脳症の原因物質はどれか。',o:['ビリルビン','尿酸','尿素','アンモニア','胆汁酸'],a:4,e:'肝性脳症はアンモニアが肝臓で解毒されず脳に到達することで起こります。'},
+  {no:36,q:'黄疸を示す疾患はどれか。',o:['食道炎','胃炎','肺炎','胆管炎','尿道炎'],a:4,e:'胆管炎では胆汁の流れが障害されビリルビンが蓄積し黄疸が現れます。'},
+  {no:37,q:'腎疾患の評価指標となる血液検査項目はどれか。',o:['ALT','AST','ALP','CRE','GLU'],a:4,e:'クレアチニン（CRE）は糸球体濾過率（GFR）を反映する腎機能の指標です。'},
+  {no:38,q:'血液凝固に関わる血漿タンパクはどれか。',o:['ヘモグロビン','アルブミン','ビリルビン','トランスフェリン','フィブリノーゲン'],a:5,e:'フィブリノーゲンは血液凝固因子I。トロンビンによりフィブリンに変換され凝固に関わります。'},
+  {no:39,q:'犬で多尿が生じる疾患はどれか。',o:['糖尿病','尿道結石','気管虚脱','胃潰瘍','外耳炎'],a:1,e:'糖尿病では血糖上昇による浸透圧利尿で多尿・多飲が起こります。'},
+  {no:40,q:'免疫介在性疾患はどれか。',o:['気管支拡張症','腸重積','関節リウマチ','膿皮症','副腎皮質機能亢進症'],a:3,e:'関節リウマチは自己免疫（免疫介在性）疾患です。'},
+  {no:41,q:'生理食塩水300mL中の塩化ナトリウムの量はどれか。',o:['0.27g','1.5g','2.7g','15g','27g'],a:3,e:'0.9%×300mL=2.7gです。'},
+  {no:42,q:'全血球計算（CBC）に適した抗凝固剤はどれか。',o:['EDTA-2ナトリウム','ヘパリンナトリウム','ヘパリンリチウム','クエン酸ナトリウム','フッ化ナトリウム'],a:1,e:'CBCにはEDTA（エチレンジアミン四酢酸）が適しています。血球の形態を保持します。'},
+  {no:43,q:'逸脱酵素の検査項目でないのはどれか。',o:['AMY','AST','BUN','CK','LDH'],a:3,e:'BUN（血中尿素窒素）は腎機能・タンパク代謝の指標で逸脱酵素ではありません。'},
+  {no:44,q:'インフォームドコンセントが意味するのはどれか。',o:['法令遵守','医療情報','説明と同意','父権主義','医療連携'],a:3,e:'インフォームドコンセントは医療者が患者に説明し、患者が同意することです。'},
+  {no:45,q:'愛玩動物看護師が動物の状態を飼い主に説明する際の対応として誤っているのはどれか。',o:['説明文を渡す。','模型を使う。','図を使う。','自分の意見を主張する。','繰り返し説明する。'],a:4,e:'一方的に自分の意見を主張するのは適切なコミュニケーションではありません。'},
+  {no:46,q:'農林水産省が管轄する使役犬はどれか。',o:['災害救助犬','動植物検疫探知犬','警備犬','麻薬探知犬','警察犬'],a:2,e:'動植物検疫探知犬は植物防疫所に所属し農林水産省が管轄します。'},
+  {no:47,q:'一般的に、犬にとってストレス緩和にならないのはどれか。',o:['遊び場','滑らない床','知育玩具','マイスペース','隔離された部屋'],a:5,e:'隔離された部屋は社会的動物である犬にとってストレス緩和にはなりません。'},
+  {no:48,q:'ペットロスに伴う悲嘆反応のうち認知的反応にあたるのはどれか。',o:['悲しみ','否認','怒り','罪悪感','不安'],a:2,e:'否認は「死を認めない・信じない」という認知的反応です。悲しみ・怒り・不安は感情的反応です。'},
+  {no:49,q:'「動物の愛護及び管理に関する法律」に規定されている動物の所有者に課せられる責務として誤っているのはどれか。',o:['感染性の疾病について正しい知識をもつ。','逸走を防止するために必要な措置を講ずる。','自己の所有であることを明らかにするための措置を講ずる。','できる限り、動物が命を終えるまで適切に飼養する。','無制限に繁殖を行う。'],a:5,e:'無制限の繁殖は動愛法の精神に反します。飼養者は適切な繁殖制限が求められます。'},
+  {no:50,q:'現在、日本のペット産業で、市場規模が最も大きいのはどれか。',o:['生体販売','トリミングサロン','ペットホテル','ペットフード販売','ペット用品販売'],a:4,e:'ペット産業の中でペットフード販売が市場規模最大のセクターです。'},
+];
+const K3=[
+  {no:1,q:'動物の福祉に関する組合せとして正しいのはどれか。',o:['愛玩動物　終生飼養','展示動物　3Rの原則','産業動物　TNR活動','実験動物　アニマルシェルター','野生動物　キャリアチェンジ'],a:1,e:'愛玩動物の福祉の重要な柱の一つが終生飼養（最後まで責任を持って飼う）です。'},
+  {no:2,q:'胆汁に含まれるのはどれか。',o:['ヘモグロビン','ミオグロビン','ペプシン','トリプシン','ビリルビン'],a:5,e:'胆汁にはビリルビン・胆汁酸・コレステロールなどが含まれます。'},
+  {no:3,q:'胆嚢をもたない動物はどれか。\nａ：馬　ｂ：犬　ｃ：猫　ｄ：ウサギ　ｅ：ラット',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:5,e:'馬とラットは胆嚢を持ちません。犬・猫・ウサギは胆嚢を持ちます。'},
+  {no:4,q:'猫の動脈血pHの正常値はどれか。',o:['4.0','5.4','7.0','7.4','8.1'],a:4,e:'哺乳類の動脈血pHの正常値は7.35〜7.45で、中央値は7.4です。'},
+  {no:5,q:'犬で半月板が存在する関節はどれか。',o:['顎関節','肩関節','肘関節','股関節','膝関節'],a:5,e:'半月板は膝関節（内側・外側）に存在し、荷重分散やクッションの役割を果たします。'},
+  {no:6,q:'抗体を産生する細胞はどれか。',o:['マクロファージ','肥満細胞','好酸球','形質細胞','好塩基球'],a:4,e:'形質細胞（プラズマ細胞）はB細胞が分化したもので抗体を産生します。'},
+  {no:7,q:'雌犬の交配適期の判定に広く利用されているのはどれか。',o:['触診','体温測定','X線検査','超音波検査','腟スメア検査'],a:5,e:'腟スメア検査（細胞診）は発情期の細胞変化を観察し、交配適期を判定するのに広く使われます。'},
+  {no:8,q:'犬の染色体数（2n）はどれか。',o:['38','46','60','64','78'],a:5,e:'犬の染色体数は2n=78（39対）です。猫は2n=38です。'},
+  {no:9,q:'動物行動学において、与えられた刺激に対する反応が増大するのはどれか。',o:['馴化','感作','脱感作','般化','消去'],a:2,e:'感作（感受性の増大）では繰り返しの刺激で反応が強くなります。馴化は逆（反応が弱くなる）。'},
+  {no:10,q:'犬や猫が体内で合成できるビタミンはどれか。',o:['ビタミンA','ビタミンB1','ビタミンB6','ビタミンC','ビタミンD'],a:4,e:'犬・猫はビタミンC（アスコルビン酸）を体内で合成できます（ヒト・モルモットは合成不可）。'},
+  {no:11,q:'安静時エネルギー要求量の略語はどれか。',o:['BER','DER','MER','RER','TER'],a:4,e:'RER（Resting Energy Requirement）は安静時エネルギー要求量の略語です。'},
+  {no:12,q:'実験動物に関する記述として正しいのはどれか。',o:['マウスはラットよりも大きい。','ラットは草食性である。','ハムスターは頬袋をもつ。','モルモットはビタミンCを合成できる。','ウサギは齧歯目に属する。'],a:3,e:'ハムスターは食料を蓄えるための頬袋を持ちます。モルモットはビタミンC合成不可。ウサギは兎形目です。'},
+  {no:13,q:'動物園の役割でないのはどれか。',o:['種の保存','品種改良','教育','調査研究','レクリエーション'],a:2,e:'品種改良は農業・畜産分野の目的です。動物園の役割は種の保存・教育・調査研究・レクリエーションです。'},
+  {no:14,q:'「動物の愛護及び管理に関する法律」に基づいて定められた基準でないのはどれか。',o:['家庭動物等の飼養及び保管に関する基準','展示動物の飼養及び保管に関する基準','産業動物の飼養及び保管に関する基準','実験動物の飼養及び保管並びに苦痛の軽減に関する基準','希少動物の飼養及び保管に関する基準'],a:5,e:'希少動物の飼養及び保管に関する基準は動愛法に基づく基準として規定されていません。'},
+  {no:15,q:'外来生物法で特定外来生物に対して禁止されていないのはどれか。',o:['輸入','観察','飼養','放出','譲渡'],a:2,e:'観察（見ること）は禁止されていません。輸入・飼養・放出・譲渡・販売などは禁止されています。'},
+  {no:16,q:'愛玩動物看護師の業務でないのはどれか。',o:['検査結果にもとづく診断','入院している愛玩動物の世話','獣医師の指示の下に行われる診療の補助','愛玩動物の飼養管理に関する指導・助言','動物介在活動の支援'],a:1,e:'検査結果に基づく診断は獣医師の業務です。'},
+  {no:17,q:'「細胞数の増加による組織の増大」はどれか。',o:['化生','過形成','肥大','再生','異形成'],a:2,e:'過形成は細胞数の増加による組織の増大です。肥大は細胞サイズの増大です。'},
+  {no:18,q:'非ステロイド系抗炎症薬（NSAIDs）はどれか。',o:['アスピリン','ハイドロコルチゾン','トリアムシノロン','プレドニゾロン','デキサメタゾン'],a:1,e:'アスピリン（サリチル酸系）はNSAIDsです。ハイドロコルチゾン以下はステロイド系抗炎症薬です。'},
+  {no:19,q:'抗腫瘍薬はどれか。',o:['アトロピン','シスプラチン','アンピシリン','ドパミン','セファゾリン'],a:2,e:'シスプラチンは白金製剤の抗腫瘍薬（抗がん剤）です。'},
+  {no:20,q:'瓜実条虫の中間宿主はどれか。',o:['メマトイ','ケンミジンコ','カワニナ','ネコノミ','マメタニシ'],a:4,e:'瓜実条虫（Dipylidium caninum）の中間宿主はネコノミ・イヌノミです。'},
+  {no:21,q:'犬と猫の皮膚糸状菌症に関する記述として誤っているのはどれか。',o:['病原体は真菌類である。','円形の脱毛が典型的である。','予防にはワクチンが有効である。','多頭飼育で蔓延しやすい。','ヒトに感染することがある。'],a:3,e:'皮膚糸状菌症に対する有効なワクチンは現在ありません。'},
+  {no:22,q:'免疫複合体の沈着によって起こるアレルギーはどれか。',o:['Ⅰ型アレルギー','Ⅱ型アレルギー','Ⅲ型アレルギー','Ⅳ型アレルギー','Ⅴ型アレルギー'],a:3,e:'Ⅲ型（免疫複合体型）アレルギーは抗原抗体複合体が組織に沈着して起こります。'},
+  {no:23,q:'感染症における潜伏期間はどれか。',o:['感染から症状出現まで','感染から症状消失まで','感染から抗体検出まで','症状出現から症状消失まで','症状出現から病原体消失まで'],a:1,e:'潜伏期間は感染（病原体が体内に入った時点）から症状が出現するまでの期間です。'},
+  {no:24,q:'狂犬病における犬からヒトへの主な感染様式はどれか。',o:['飛沫感染','媒介物（ベクター）感染','咬傷感染','空気感染','接触感染'],a:3,e:'狂犬病は感染動物に咬まれる（咬傷）ことで感染します。唾液中のウイルスが傷口から侵入します。'},
+  {no:25,q:'犬と猫の一般的なバイタルサインに該当しないのはどれか。',o:['血圧','呼吸数','心拍数','睡眠時間','意識レベル'],a:4,e:'バイタルサインは体温・脈拍・呼吸・血圧・意識レベルです。睡眠時間は含まれません。'},
+  {no:26,q:'犬の身体検査で末梢循環を評価する指標はどれか。',o:['ボディ・コンディション・スコア','毛細血管再充満時間','体温','体表リンパ節の大きさ','瞳孔の大きさ'],a:2,e:'CRT（毛細血管再充満時間）は末梢循環状態を評価する指標です。'},
+  {no:27,q:'愛玩動物看護師の薬剤に関連する業務として適切でないのはどれか。',o:['内服薬の投与','治療薬の決定','外用薬の塗布','薬浴の指導','薬剤の在庫管理'],a:2,e:'治療薬の決定は獣医師の業務です。'},
+  {no:28,q:'肛門から挿入し体温または分泌液で溶ける固形の薬剤はどれか。',o:['内服薬','舌下薬','坐薬','注射薬','点眼薬'],a:3,e:'坐薬（坐剤）は肛門から挿入し、体温で溶けて吸収される固形の薬剤です。'},
+  {no:29,q:'医療ガスとしての酸素の院内配管の色はどれか。',o:['緑','青','黄','黒','橙'],a:1,e:'日本の医療用酸素の配管・ガスボンベは緑色と定められています。'},
+  {no:30,q:'局所麻酔薬はどれか。',o:['リドカイン','モルヒネ','イソフルラン','プロポフォール','ケタミン'],a:1,e:'リドカインはナトリウムチャネルブロッカーの局所麻酔薬です。'},
+  {no:31,q:'組織把持鉗子はどれか。',o:['バブコック鉗子','ケリー鉗子','コッヘル鉗子','モスキート鉗子','ペアン鉗子'],a:1,e:'バブコック鉗子は消化管などの軟組織を傷つけずに把持する組織把持鉗子です。'},
+  {no:32,q:'動物看護記録をSOAP方式に従って作成する際のPはどれか。',o:['飼い主の主観的情報','獣医師による検査','臨床徴候の分析','問題点の抽出','今後の方針'],a:5,e:'SOAP：S=主観的情報、O=客観的情報、A=アセスメント（評価）、P=プラン（計画）。'},
+  {no:33,q:'動物看護業務におけるケアの標準化を目的に活用されているのはどれか。',o:['スタンダードプリコーション','クリティカルパス','エンパワメント','セカンドオピニオン','インフォームドコンセント'],a:2,e:'クリティカルパス（パスウェイ）はケアの標準化・効率化を目的とした診療計画ツールです。'},
+  {no:34,q:'犬で食欲亢進がみられる疾患はどれか。',o:['鼻炎','歯肉炎','咀嚼筋炎','クッシング症候群','腎不全'],a:4,e:'クッシング症候群ではコルチゾール過剰により食欲亢進・多飲多尿などが現れます。'},
+  {no:35,q:'斜頚の原因となる障害部位はどれか。',o:['大脳皮質','中脳','前庭','延髄','脊髄'],a:3,e:'斜頚（頭が傾く）は前庭（内耳・前庭神経・前庭核）の障害で起こります。'},
+  {no:36,q:'胃拡張胃捻転症候群が生じやすい犬種はどれか。',o:['グレート・デーン','シー・ズー','トイ・プードル','ビーグル','フレンチ・ブルドッグ'],a:1,e:'GDVはグレート・デーン・ジャーマンシェパードなどの大型・深胸犬種に好発します。'},
+  {no:37,q:'犬で前方引き出し徴候（ドロアーサイン）を特徴とする疾患はどれか。',o:['膝関節炎','前十字靭帯断裂','変形性関節症','股異形成','レッグペルテス病'],a:2,e:'前十字靭帯断裂では膝の不安定性によりドロアーサイン（引き出し徴候）が陽性となります。'},
+  {no:38,q:'犬が摂取すると貧血を引き起こすのはどれか。',o:['リンゴ','チョコレート','ネギ','緑茶','キシリトール'],a:3,e:'ネギ（玉ねぎ・長ネギなど）に含まれる有機硫黄化合物が赤血球を破壊し溶血性貧血を引き起こします。'},
+  {no:39,q:'血液塗抹標本における網状赤血球の染色法として適切なのはどれか。',o:['ライト・ギムザ染色','マッソン・トリクローム染色','ディフ・クイック染色','ニューメチレンブルー染色','ヘマトキシリン・エオジン染色'],a:4,e:'網状赤血球（再生途中の赤血球）の染色にはニューメチレンブルー（超生体染色）が適しています。'},
+  {no:40,q:'血液凝固因子はどれか。',o:['Feイオン','Naイオン','Caイオン','Pイオン','Mgイオン'],a:3,e:'Ca²⁺（カルシウムイオン）は血液凝固の複数のステップに必須の凝固因子（第IV因子）です。'},
+  {no:41,q:'腎臓の評価に用いられる血液検査項目として最も適切なのはどれか。',o:['AST','BUN','ALT','ALP','LDH'],a:2,e:'BUN（血中尿素窒素）はGFRが低下すると上昇する腎機能の指標です。'},
+  {no:42,q:'獣医療面接における愛玩動物看護師の役割でないのはどれか。',o:['動物と飼い主の名前の確認','病歴の聴取','治療方針の決定','飼い主との良好な関係の構築','飼い主の要求の確認'],a:3,e:'治療方針の決定は獣医師の業務です。'},
+  {no:43,q:'獣医療面接の最後に行うのはどれか。',o:['要約','主訴の聴取','動物名の確認','挨拶','自己紹介'],a:1,e:'面接の最後に要約（これまでの会話を整理・確認）を行うことで、情報の確認と信頼関係の構築ができます。'},
+  {no:44,q:'長毛の猫種はどれか。',o:['日本猫','アビシニアン','ロシアンブルー','メインクーン','スフィンクス'],a:4,e:'メインクーンは長毛の大型猫種です。アビシニアン・ロシアンブルーは短毛、スフィンクスは無毛種です。'},
+  {no:45,q:'補助犬の適正条件でないのはどれか。',o:['動物や人に対して友好的である。','他の動物に対して強い興味をもつ。','環境への順応性が優れている。','集中することができる。','行動が安定している。'],a:2,e:'補助犬は他の動物に気を取られず業務に集中できることが必要です。強い興味は適性条件に反します。'},
+  {no:46,q:'江戸幕府の第5代将軍・徳川綱吉が発出したのはどれか。',o:['獣類伝染病予防規則','狩猟法','生類憐みの令','殺生禁断の令','動物虐待法'],a:3,e:'生類憐みの令は徳川綱吉が1685年に発令した動物保護令です。'},
+  {no:47,q:'動物がいることによる3つの効果に含まれないのはどれか。\nａ：経済的効果　ｂ：衛生的効果　ｃ：心理的効果　ｄ：生理的・身体的効果　ｅ：社会的効果',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:1,e:'動物との交流の3つの効果は心理的効果・生理的効果・社会的効果です。経済的・衛生的効果は含まれません。'},
+  {no:48,q:'猫の飼育環境として一般的に推奨されるのはどれか。',o:['室温は30℃以上とする。','夜間も明るい状態に保つ。','高所に登らせないよう注意する。','給水は一定量に制限する。','トイレの数は頭数＋1個以上とする。'],a:5,e:'猫のトイレは「頭数＋1個以上」設置することが推奨されています。'},
+  {no:49,q:'飼い主が留意すべき犬と猫の飼養管理として誤っているのはどれか。',o:['逸走を防ぐ。','人獣共通感染症の知識をもつ。','災害のための備蓄をする。','繁殖は計画的に行う。','フードは欲しがるだけ与える。'],a:5,e:'フードを欲しがるだけ与えるのは肥満の原因となり適切な飼養管理ではありません。'},
+  {no:50,q:'「動物の愛護及び管理に関する法律」に規定されている第一種動物取扱業でないのはどれか。',o:['展示','保管','火葬','譲受飼養','訓練'],a:3,e:'火葬（葬儀）は動愛法の第一種動物取扱業には含まれません。'},
+];
+const K4=[
+  {no:1,q:'「動物の生理的、環境的、栄養的、行動的および社会的な欲求が可能な限り満たされている幸福な状態」を求めるのはどれか。',o:['動物福祉','ヒューマン・アニマル・ボンド','QOL','環境エンリッチメント','動物愛護'],a:1,e:'動物福祉（アニマルウェルフェア）は動物の欲求を満たし幸福な状態を求める考え方です。'},
+  {no:2,q:'減数分裂によって生じる細胞はどれか。',o:['心筋細胞','肝細胞','赤血球','神経細胞','卵子'],a:5,e:'卵子と精子は減数分裂によって生じる配偶子です。'},
+  {no:3,q:'犬や猫で心臓の左心室から送り出された血液が流入するのはどれか。',o:['大動脈','左心房','右心室','肺動脈','右心房'],a:1,e:'左心室から拍出された血液は大動脈を通り全身に送られます。'},
+  {no:4,q:'トリプシンの基質はどれか。',o:['脂肪','タンパク質','フルクトース','マルトース','核酸'],a:2,e:'トリプシンは膵臓から分泌されるタンパク質分解酵素です。'},
+  {no:5,q:'犬の胃で産生される消化酵素はどれか。',o:['ペプシン','カタラーゼ','ラクターゼ','スクラーゼ','アミラーゼ'],a:1,e:'ペプシンは主細胞からペプシノーゲンとして分泌され、塩酸で活性化されます。'},
+  {no:6,q:'ステロイドホルモンはどれか。',o:['サイロキシン','ガストリン','インスリン','テストステロン','アドレナリン'],a:4,e:'テストステロンはコレステロールを前駆体とするステロイドホルモンです。'},
+  {no:7,q:'腎臓で原尿がつくられる部位はどれか。',o:['集合管','ヘンレのワナ','近位尿細管','腎小体','遠位尿細管'],a:4,e:'腎小体（糸球体＋ボウマン嚢）で血液がろ過され原尿が生成されます。'},
+  {no:8,q:'雄犬の副生殖腺に分類されるのはどれか。',o:['精巣','精巣上体','前立腺','大前庭腺','小前庭腺'],a:3,e:'前立腺は雄犬の副生殖腺で、精液の一部を産生します。'},
+  {no:9,q:'猫の妊娠期間はどれか。',o:['約2週間','約1か月間','約2か月間','約3か月間','約4か月間'],a:3,e:'猫の妊娠期間は約63〜65日、約2か月間です。'},
+  {no:10,q:'動物で、摂食・飲水・排泄・身づくろい・護身が含まれる行動はどれか。',o:['社会行動','失宜行動','親和行動','維持行動','継続行動'],a:4,e:'維持行動は個体の生命維持に必要な行動（摂食・飲水・排泄・身づくろい・護身・睡眠など）です。'},
+  {no:11,q:'犬の分離不安に関する説明として適切なのはどれか。',o:['飼い主がそばにいても常に吠える。','飼い主の不在時に不適切な排泄をする。','他の犬や飼い主に対して攻撃的になる。','他の動物との接触によって過度に興奮する。','社会化を受けた個体のみにみられる行動である。'],a:2,e:'分離不安は飼い主の不在時に不適切な排泄・破壊行動・鳴き続けるなどの行動として現れます。'},
+  {no:12,q:'飽和脂肪酸はどれか。\nａ：パルミチン酸　ｂ：ステアリン酸　ｃ：リノール酸　ｄ：EPA　ｅ：DHA',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:1,e:'パルミチン酸（C16:0）とステアリン酸（C18:0）は飽和脂肪酸。リノール酸・EPA・DHAは不飽和脂肪酸です。'},
+  {no:13,q:'めん羊の品種でないのはどれか。',o:['コリデール種','ザーネン種','サフォーク種','メリノ種','ロムニー種'],a:2,e:'ザーネン種は乳用山羊の品種です。コリデール・サフォーク・メリノ・ロムニーはめん羊の品種です。'},
+  {no:14,q:'輸出国政府機関発行の検査証明書があれば、輸入検査を受けて輸入が可能な動物はどれか。',o:['プレーリードッグ','ウサギ','ハクビシン','ヤワゲネズミ','イタチアナグマ'],a:2,e:'ウサギは輸出国政府機関発行の検査証明書があれば輸入可能です。他はより厳しい規制が適用されます。'},
+  {no:15,q:'犬や猫の遺棄を禁止する法律はどれか。',o:['「動物の愛護及び管理に関する法律」','「愛玩動物看護師法」','「家畜伝染病予防法」','「と畜場法」','「狂犬病予防法」'],a:1,e:'動愛法第44条では動物の遺棄を禁止し、罰則を定めています。'},
+  {no:16,q:'「動物の愛護及び管理に関する法律」において、飼養及び保管等に関する基準が定められていないのはどれか。',o:['家庭動物','野生動物','展示動物','産業動物','実験動物'],a:2,e:'野生動物の飼養・保管に関する基準は動愛法には定められていません。'},
+  {no:17,q:'診療簿（カルテ）に記載する必要がない事項はどれか。',o:['診療年月日','診療動物の種類','病名','診療費','りん告'],a:4,e:'診療費は獣医師法施行規則で定める診療録の必須記載事項ではありません。'},
+  {no:18,q:'診療簿（カルテ）の保存期間を定めた法律はどれか。',o:['「愛玩動物看護師法」','「獣医師法」','「個人情報の保護に関する法律」','「獣医療法」','「動物の愛護及び管理に関する法律」'],a:2,e:'診療録（カルテ）の保存期間（3年間）は獣医師法施行規則に定められています。'},
+  {no:19,q:'「愛玩動物看護師法」に規定されている業務対象の動物はどれか。\nａ：馬　ｂ：ウサギ　ｃ：猫　ｄ：オウム科の鳥　ｅ：カメ',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:3,e:'愛玩動物看護師法の業務対象は犬・猫（および政令指定のウサギ・オウム科の鳥・爬虫類など）です。c（猫）とd（オウム科）が含まれます。'},
+  {no:20,q:'「愛玩動物看護師法」で定められているのはどれか。',o:['治療法の選択','愛玩動物看護師の業務','動物看護記録の作成','検査結果に基づく診断','愛玩動物看護師の労働時間'],a:2,e:'愛玩動物看護師法では業務範囲・免許・欠格事由などが定められています。'},
+  {no:21,q:'体外性色素はどれか。',o:['胆色素','リポフスチン','メラニン','炭粉','ヘモジデリン'],a:4,e:'炭粉（炭素粒）は外部から体内に入る体外性色素です。胆色素・メラニン・ヘモジデリンは体内産生の体内性色素です。'},
+  {no:22,q:'細胞周期のうち有糸分裂期はどれか。',o:['G0期','G1期','S期','G2期','M期'],a:5,e:'M期（Mitosis期）が有糸分裂期です。S期はDNA複製期、G1・G2はギャップ期です。'},
+  {no:23,q:'出血傾向の原因はどれか。',o:['好酸球増多','血小板減少','好中球減少','赤血球増多','リンパ球減少'],a:2,e:'血小板減少は一次止血の障害を引き起こし出血傾向となります。'},
+  {no:24,q:'注射用全身麻酔薬でないのはどれか。',o:['ペントバルビタール','ケタミン','プロポフォール','アルファキサロン','リドカイン'],a:5,e:'リドカインは局所麻酔薬であり、全身麻酔薬ではありません。'},
+  {no:25,q:'ヒトにおいて水系感染症はどれか。',o:['ペスト','パスツレラ症','コレラ','結核','破傷風'],a:3,e:'コレラはコレラ菌（Vibrio cholerae）に汚染された水・食物から感染する水系感染症です。'},
+  {no:26,q:'不顕性感染の説明として正しいのはどれか。',o:['感染個体内で病原体が特定できない。','感染しているが発症していない。','感染しているが症状が軽微である。','感染しており症状が重度である。','感染しており発症を定期的に繰り返す。'],a:2,e:'不顕性感染（無症候性感染）は感染しているが症状が現れない状態です。'},
+  {no:27,q:'猫に感染すると主に呼吸器症状が生じるウイルスはどれか。',o:['狂犬病ウイルス','猫パルボウイルス','猫ヘルペスウイルス','猫コロナウイルス','猫白血病ウイルス'],a:3,e:'猫ヘルペスウイルス（FHV-1）は猫ウイルス性鼻気管炎の原因で、くしゃみ・鼻汁などの呼吸器症状を起こします。'},
+  {no:28,q:'「ある一定の地域で長期にわたってほぼ同程度の頻度で感染症が発生している状態」を示す用語はどれか。',o:['スポラディック','パンデミック','エピデミック','エンデミック','アウトブレイク'],a:4,e:'エンデミック（endemic）は特定の地域で常に一定レベルで存在する感染症の状態です。'},
+  {no:29,q:'愛玩動物看護師が実施できないのはどれか。',o:['採血','動物の保定','尿検査','ワクチン接種','適正飼養指導'],a:4,e:'ワクチン接種（注射）は獣医師が行う業務です。愛玩動物看護師は実施できません。'},
+  {no:30,q:'犬と猫のマイクロチップに関する記述として適切なのはどれか。',o:['リアルタイムで位置を追跡できる。','皮膚に貼り付けて使用する。','スマートフォンのみで読み取る。','登録情報は指定登録機関のデータベースで管理される。','数日で自然に体外へ排出される。'],a:4,e:'マイクロチップの登録情報は指定登録機関（AIPO等）のデータベースで管理されます。'},
+  {no:31,q:'薬剤の冷所保存として定義される温度条件はどれか。',o:['0℃以下','1〜15℃','1〜30℃','15〜25℃','20℃'],a:2,e:'日本薬局方では冷所保存は「1〜15℃」と定義されています。'},
+  {no:32,q:'脊髄反射の検査項目はどれか。',o:['踏み直り反応','跳び直り反応','眼瞼反射','角膜反射','膝蓋腱反射'],a:5,e:'膝蓋腱反射は脊髄反射（伸張反射）の一つで、脊髄L4〜L6節レベルを評価します。'},
+  {no:33,q:'麻酔看視項目と評価対象の組合せとして正しいのはどれか。',o:['心電図　心調律','経皮的動脈血酸素飽和度　筋弛緩','呼気終末二酸化炭素分圧　ヘモグロビンの酸素化','毛細血管再充満時間　疼痛','体温　血液循環'],a:1,e:'心電図は心調律（不整脈の有無）の評価に用います。SpO2はヘモグロビン酸素化を評価します。'},
+  {no:34,q:'皮膚の縫合に適した素材はどれか。',o:['ポリグリコール酸','ポリグラクチン910','ナイロン','ポリジオキサノン','グリコライド'],a:3,e:'ナイロン（ポリアミド）は非吸収性合成縫合糸で、皮膚縫合に適しています。'},
+  {no:35,q:'肺疾患の徴候として認められるのはどれか。',o:['鼻汁','流涎','吐出','くしゃみ','チアノーゼ'],a:5,e:'チアノーゼ（皮膚・粘膜の青紫色変化）は酸素化不足を示し、肺疾患で認められます。'},
+  {no:36,q:'尿検査項目でないのはどれか。',o:['pH','二酸化炭素濃度','潜血','タンパク濃度','比重'],a:2,e:'二酸化炭素濃度は血液ガス検査の項目であり、尿検査項目ではありません。'},
+  {no:37,q:'犬の頚部に生じる脊髄・脊椎疾患はどれか。',o:['馬尾症候群','廃用症候群','クッシング症候群','ウォブラー症候群','ファンコニー症候群'],a:4,e:'ウォブラー症候群（頚部脊椎脊髄症）は大型・巨大犬の頚部脊椎の変性・不安定性による疾患です。'},
+  {no:38,q:'眼圧の上昇により失明の危険性がある疾患はどれか。',o:['角膜潰瘍','核硬化症','結膜炎','緑内障','網膜剥離'],a:4,e:'緑内障は眼圧の上昇により視神経が障害され、失明に至る可能性がある疾患です。'},
+  {no:39,q:'犬や猫で核がない血液細胞はどれか。',o:['血小板','好中球','好酸球','リンパ球','単球'],a:1,e:'血小板（thrombocyte）は骨髄巨核球の細胞質の断片であり、核を持ちません。'},
+  {no:40,q:'病理組織検体の固定に最も頻繁に用いられるのはどれか。',o:['精製水','生理食塩水','30%酢酸液','70%エタノール液','10%中性緩衝ホルマリン液'],a:5,e:'10%中性緩衝ホルマリン液は組織形態を保持する最も標準的な固定液です。'},
+  {no:41,q:'飼い主が治療方針の決定に積極的に参加し、それに従って協力し自ら行動するのはどれか。',o:['アドヒアランス','インフォームドコンセント','クライアントエデュケーション','トリアージ','ラポール'],a:1,e:'アドヒアランスは患者が自発的に治療に参加・協力・継続する姿勢・行動です。'},
+  {no:42,q:'愛玩動物看護師が実施する初診時の事前問診において行わないのはどれか。',o:['挨拶','動物名の確認','自己紹介','投薬の指導','主訴の聞き取り'],a:4,e:'投薬の指導は診断後に行うものであり、初診時の事前問診で行う業務ではありません。'},
+  {no:43,q:'短毛種の猫はどれか。',o:['アビシニアン','ペルシャ','メイン・クーン','ラグドール','ヒマラヤン'],a:1,e:'アビシニアンは短毛種の猫です。ペルシャ・メインクーン・ラグドール・ヒマラヤンは長毛種です。'},
+  {no:44,q:'犬の飼養者の責務でないのはどれか。',o:['終生飼養に努める。','近隣の生活環境に配慮する。','繁殖制限措置を講じる。','逸走防止に努める。','飼い主の登録を5年に一度更新する。'],a:5,e:'犬の登録は一生に一度（生涯登録制）です。5年ごとの更新は不要です。'},
+  {no:45,q:'愛玩動物に対するネグレクトはどれか。\nａ：健康管理をしない。\nｂ：恐怖心を与える。\nｃ：動物同士を闘わせる。\nｄ：酷使する。\nｅ：食事を与えない。',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:5,e:'ネグレクトは「必要なケアをしない」こと。健康管理をしない・食事を与えないがネグレクトです。'},
+  {no:46,q:'「動物の愛護及び管理に関する法律」に基づく第一種動物取扱業はどれか。\nａ：ペットホテル　ｂ：盲導犬の訓練団体　ｃ：非営利のペットシッター　ｄ：譲渡活動を行う動物愛護団体　ｅ：老犬ホーム',o:['ａ，ｂ','ｂ，ｃ','ｃ，ｄ','ｄ，ｅ','ａ，ｅ'],a:5,e:'ペットホテル（保管業）と老犬ホーム（保管業）は第一種動物取扱業に該当します。'},
+  {no:47,q:'動物の頭数が飼い主の管理能力を超える多頭飼育に関する記述として誤っているのはどれか。',o:['近隣住民の生活環境を脅かすことがある。','動物の虐待に該当することがある。','飼育継続困難の判定は環境大臣が行う。','飼われている動物には社会性がないことが多い。','飼い主の生活状況の悪化を引き起こす可能性がある。'],a:3,e:'多頭飼育崩壊の判定は環境大臣ではなく、地方自治体（都道府県・市区町村）が行います。'},
+  {no:48,q:'猫で室内飼育が推奨される理由として適切でないのはどれか。',o:['近隣への迷惑の防止','不要な繁殖の防止','過剰な運動の防止','交通事故の防止','感染症の予防'],a:3,e:'猫にとって適度な運動は必要で、「過剰な運動の防止」は室内飼育の推奨理由として不適切です。'},
+  {no:49,q:'ペット関連産業における「コンプライアンス」の説明として最も適切なのはどれか。',o:['社会良識や社会ルールを守ること','なるべく安価で動物を販売すること','動物に社会性を身に着ける機会を与えること','動物にペットフードのみを給与すること','購買者にペット保険への加入を勧めること'],a:1,e:'コンプライアンスは法令・規制・社会的ルールを守ることです。'},
+  {no:50,q:'日本におけるペット保険に関する記述として誤っているのはどれか。',o:['公的な保険制度である。','保険加入の背景にはペットの家族化がある。','一般的に保険料が高いほど補償内容が充実している。','エキゾチックアニマルを対象にしている保険もある。','高齢になると保険料が高くなるものが多い。'],a:1,e:'ペット保険は民間保険会社が提供する任意の民間保険であり、公的保険制度ではありません。'},
+];
+
+// ===== ALL_Q =====
+const EXAM_DATA={y1:Y1,y2:Y2,y3:Y3,y4:Y4,k1:K1,k2:K2,k3:K3,k4:K4};
+const ALL_Q=[];
+Object.entries(EXAM_DATA).forEach(([eid,qs])=>qs.forEach(q=>ALL_Q.push({...q,eid})));
+
+// ===== STORAGE =====
+const STORE_KEY = 'aigan_v3';
+let weak = new Set(), mastered = new Set(), history = [];
+
+async function loadStore() {
+  try {
+    const r = await window.storage.get(STORE_KEY);
+    if (r) {
+      const d = JSON.parse(r.value);
+      weak     = new Set(d.weak     || []);
+      mastered = new Set(d.mastered || []);
+      history  = d.history || [];
+    }
+  } catch(e) {}
+}
+
+async function saveStore() {
+  try {
+    await window.storage.set(STORE_KEY, JSON.stringify({
+      weak: [...weak], mastered: [...mastered], history
+    }));
+  } catch(e) {}
+}
+
+// ===== STATE =====
+let curCat = 'yobi';
+let qzPool=[], qzIdx=0, qzOk=0, qzNg=0, qzMode='quiz';
+let exId='', exPool=[], exIdx=0, exAns=[], exTimer=null, exSec=3000, retryEid='';
+let flPool=[], flIdx=0;
+
+// ===== HELPERS =====
+const shuf = a => {
+  const b = [...a];
+  for (let i = b.length-1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i+1));
+    [b[i], b[j]] = [b[j], b[i]];
+  }
+  return b;
+};
+const ei   = id => EXAMS_INFO.find(e => e.id === id);
+const tCls = id => id.startsWith('y') ? 'yobi' : 'kokka';
+
+// ===== NAV =====
+let lastScr = 's-home';
+const BACK_MAP = {
+  's-quiz' :'s-qsel', 's-exam':'s-esel', 's-flash':'s-fsel',
+  's-result':'s-home', 's-qsel':'s-home', 's-esel':'s-home',
+  's-fsel' :'s-home', 's-rsel':'s-home'
+};
+const NO_NAV = ['s-quiz','s-exam','s-result'];
+const BN_MAP = {
+  's-home':'bn-home','s-rsel':'bn-rand','s-quiz':'bn-rand',
+  's-esel':'bn-exam','s-exam':'bn-exam',
+  's-fsel':'bn-flash','s-flash':'bn-flash'
+};
+
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.getElementById('back-btn').style.display = id === 's-home' ? 'none' : '';
+  document.querySelector('.bnav').style.display = NO_NAV.includes(id) ? 'none' : 'flex';
+  document.querySelectorAll('.bn').forEach(b => b.classList.remove('on'));
+  if (BN_MAP[id]) document.getElementById(BN_MAP[id])?.classList.add('on');
+  lastScr = id;
+  window.scrollTo(0, 0);
+}
+
+function goTo(id) { showScreen(id); }
+
+function goBack() {
+  if (exTimer) { clearInterval(exTimer); exTimer = null; }
+  const dest = BACK_MAP[lastScr] || 's-home';
+  showScreen(dest);
+  if (dest === 's-home') updateHome();
+}
+
+function goHome() {
+  if (exTimer) { clearInterval(exTimer); exTimer = null; }
+  showScreen('s-home');
+  updateHome();
+}
+
+function setHdr(t, s='') {
+  document.getElementById('hdr-title').textContent = t;
+  document.getElementById('hdr-sub').textContent   = s;
+}
+
+// ===== HOME =====
+function selectCat(c) {
+  curCat = c;
+  document.getElementById('ctab-y').className = 'cat-tab yobi' + (c === 'yobi' ? ' on' : '');
+  document.getElementById('ctab-k').className = 'cat-tab kokka'+ (c === 'kokka'? ' on' : '');
+  buildExamSel();
+  buildQSel();
+  buildFSel();
+}
+
+function updateHome() {
+  document.getElementById('h-mastered').textContent = mastered.size;
+  document.getElementById('h-weak').textContent     = weak.size;
+
+  // weak count バッジ更新
+  ['rf-wc','ff-wc'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = weak.size;
+  });
+  ['rf-weak-info','ff-weak-info'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.style.display = weak.size > 0 ? 'block' : 'none';
+  });
+
+  const hEl = document.getElementById('h-hist');
+  if (!history.length) {
+    hEl.innerHTML = '<div class="empty">まだ記録がありません</div>';
+    return;
+  }
+  hEl.innerHTML = '<div class="hist-list">' +
+    history.slice().reverse().slice(0, 6).map(r => {
+      const cls = r.pct >= 70 ? 'pass' : r.pct >= 50 ? 'mid' : 'fail';
+      return `<div class="hist-row">
+        <div><div class="hr-name">${r.name}</div><div class="hr-date">${r.date}</div></div>
+        <div class="hr-pct ${cls}">${r.pct}%</div>
+      </div>`;
+    }).join('') + '</div>';
+}
+
+// ===== EXAM SELECT =====
+function buildExamSel() {
+  document.getElementById('esel-list').innerHTML = EXAMS_INFO.map(e => {
+    const hs   = history.filter(h => h.eid === e.id);
+    const best = hs.length ? Math.max(...hs.map(h => h.pct)) : null;
+    const [bc, bt] = best === null
+      ? ['none','未受験']
+      : best >= 70 ? ['good', best + '%']
+      : best >= 50 ? ['mid',  best + '%']
+      : ['bad', best + '%'];
+    return `<button class="exam-row" onclick="startExam('${e.id}')">
+      <div class="edot ${e.type}"></div>
+      <div class="er-info">
+        <div class="er-name">${e.name}</div>
+        <div class="er-date">${e.date}　必須問題 50問</div>
+      </div>
+      <span class="badge ${bc}">${bt}</span>
+    </button>`;
+  }).join('');
+}
+
+// ===== QUIZ SELECT =====
+function buildQSel() {
+  const exams = EXAMS_INFO.filter(e => e.type === curCat);
+  document.getElementById('qf-exams').innerHTML = exams.map(e =>
+    `<button class="ftag on" data-v="${e.id}" onclick="toggleFTag(this,'qf-exams')">${e.name.replace('予備試験','').replace('国家試験','')}</button>`
+  ).join('');
+}
+
+function toggleFTag(btn, gid) {
+  btn.classList.toggle('on');
+  const any = [...document.querySelectorAll('#' + gid + ' .ftag')].some(b => b.classList.contains('on'));
+  if (!any) btn.classList.add('on');
+}
+
+function qs1(btn) {
+  document.querySelectorAll('#qf-count .ftag').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+function qs1r(btn) {
+  document.querySelectorAll('#rf-count .ftag').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+}
+
+// ===== QUIZ =====
+function startQuiz() {
+  const ids      = [...document.querySelectorAll('#qf-exams .ftag.on')].map(b => b.dataset.v);
+  const cnt      = [...document.querySelectorAll('#qf-count .ftag.on')][0]?.dataset.v || '20';
+  const weakOnly = document.getElementById('qf-weak').checked;
+  let pool = ALL_Q.filter(q => ids.includes(q.eid));
+  if (weakOnly) pool = pool.filter(q => weak.has(q.eid + '-' + q.no));
+  if (!pool.length) { alert('対象の問題がありません'); return; }
+  pool = shuf(pool);
+  if (cnt !== '0') pool = pool.slice(0, +cnt);
+  launchQuiz(pool, 'quiz');
+}
+
+// ===== RANDOM =====
+function startRandom() {
+  const cnt      = [...document.querySelectorAll('#rf-count .ftag.on')][0]?.dataset.v || '20';
+  const weakOnly = document.getElementById('rf-weak').checked;
+  let pool = weakOnly ? ALL_Q.filter(q => weak.has(q.eid + '-' + q.no)) : [...ALL_Q];
+  if (!pool.length) { alert('対象の問題がありません'); return; }
+  pool = shuf(pool);
+  if (cnt !== '0') pool = pool.slice(0, +cnt);
+  launchQuiz(pool, 'random');
+}
+
+// ===== SHARED QUIZ ENGINE =====
+function launchQuiz(pool, mode) {
+  qzPool = pool; qzIdx = 0; qzOk = 0; qzNg = 0; qzMode = mode;
+  const label = mode === 'random' ? 'ランダム出題' : '一問一答';
+  setHdr(label, `全${pool.length}問`);
+
+  const bar = document.getElementById('qz-bar');
+  bar.className = 'prog-fill ' + (mode === 'random' ? 'o' : 'g');
+
+  const nxt = document.getElementById('qz-next');
+  nxt.className = 'btn ' + (mode === 'random' ? 'po' : 'pg');
+
+  showScreen('s-quiz');
+  document.querySelector('.bnav').style.display = 'none';
+  loadQz();
+}
+
+function loadQz() {
+  const q = qzPool[qzIdx];
+  if (!q) { finishQuiz(); return; }
+
+  const tc = qzMode === 'random' ? 'rand' : tCls(q.eid);
+  document.getElementById('qz-bar').style.width  = Math.round(qzIdx / qzPool.length * 100) + '%';
+  document.getElementById('qz-cnt').textContent  = `${qzIdx + 1} / ${qzPool.length}`;
+  document.getElementById('qz-ok').textContent   = qzOk;
+  document.getElementById('qz-ng').textContent   = qzNg;
+  document.getElementById('qz-rem').textContent  = qzPool.length - qzIdx;
+  document.getElementById('qz-tag').textContent  = `${ei(q.eid).name}　問${q.no}`;
+  document.getElementById('qz-tag').className    = 'q-tag ' + tc;
+  document.getElementById('qz-text').textContent = q.q;
+  document.getElementById('qz-exp').style.display = 'none';
+  document.getElementById('qz-next').disabled    = true;
+  document.getElementById('qz-opts').innerHTML   = q.o.map((o, i) =>
+    `<button class="opt" onclick="ansQz(${i + 1})">${i + 1}. ${o}</button>`
+  ).join('');
+}
+
+function ansQz(c) {
+  const q   = qzPool[qzIdx];
+  const key = q.eid + '-' + q.no;
+  document.querySelectorAll('#qz-opts .opt').forEach(b => b.disabled = true);
+  const btns = document.querySelectorAll('#qz-opts .opt');
+
+  if (c === q.a) {
+    btns[c - 1].classList.add('correct');
+    qzOk++;
+    if (weak.has(key)) { weak.delete(key); saveStore(); }
+  } else {
+    btns[c - 1].classList.add('wrong');
+    btns[q.a - 1].classList.add('correct');
+    qzNg++;
+    weak.add(key);
+    saveStore();
+  }
+  document.getElementById('qz-ok').textContent   = qzOk;
+  document.getElementById('qz-ng').textContent   = qzNg;
+  document.getElementById('qz-expt').textContent = q.e;
+  document.getElementById('qz-exp').style.display = 'block';
+  document.getElementById('qz-next').disabled    = false;
+}
+
+function qzNext() { qzIdx++; loadQz(); }
+
+function finishQuiz() {
+  const total = qzPool.length, pct = Math.round(qzOk / total * 100);
+  const label = qzMode === 'random' ? `ランダム（${total}問）` : `一問一答（${total}問）`;
+  history.push({ name: label, date: new Date().toLocaleDateString('ja-JP'), pct, eid: '' });
+  saveStore();
+  showResult({ pct, ok: qzOk, total, pool: qzPool, ans: null, eid: '' });
+}
+
+// ===== EXAM =====
+function startExam(id) {
+  retryEid = id;
+  const info = ei(id);
+  exId = id; exPool = EXAM_DATA[id]; exIdx = 0;
+  exAns = Array(50).fill(null); exSec = 3000;
+  setHdr(info.name, '50問・50分');
+  document.getElementById('ex-tag').className = `q-tag ${tCls(id)}`;
+  showScreen('s-exam');
+  document.querySelector('.bnav').style.display = 'none';
+  if (exTimer) clearInterval(exTimer);
+  exTimer = setInterval(() => {
+    exSec--;
+    const m = Math.floor(exSec / 60), s = exSec % 60;
+    const t = document.getElementById('ex-timer');
+    t.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    t.className   = 'timer' + (exSec <= 120 ? ' urgent' : '');
+    if (exSec <= 0) { clearInterval(exTimer); exTimer = null; finishExam(); }
+  }, 1000);
+  loadEx();
+}
+
+function loadEx() {
+  const q = exPool[exIdx];
+  if (!q) { finishExam(); return; }
+  document.getElementById('ex-bar').style.width  = Math.round(exIdx / exPool.length * 100) + '%';
+  document.getElementById('ex-cnt').textContent  = `${exIdx + 1} / ${exPool.length}`;
+  document.getElementById('ex-tag').textContent  = `問 ${q.no}`;
+  document.getElementById('ex-text').textContent = q.q;
+  document.getElementById('ex-next').disabled    = true;
+  document.getElementById('ex-opts').innerHTML   = q.o.map((o, i) =>
+    `<button class="opt" onclick="ansEx(${i + 1})">${i + 1}. ${o}</button>`
+  ).join('');
+
+  if (exAns[exIdx] !== null) {
+    const c = exAns[exIdx];
+    document.querySelectorAll('#ex-opts .opt').forEach(b => b.disabled = true);
+    const btns = document.querySelectorAll('#ex-opts .opt');
+    btns[c - 1].classList.add(c === q.a ? 'correct' : 'wrong');
+    if (c !== q.a) btns[q.a - 1].classList.add('correct');
+    document.getElementById('ex-next').disabled = false;
+  }
+}
+
+function ansEx(c) {
+  exAns[exIdx] = c;
+  document.querySelectorAll('#ex-opts .opt').forEach(b => b.disabled = true);
+  const btns = document.querySelectorAll('#ex-opts .opt');
+  const q = exPool[exIdx];
+  btns[c - 1].classList.add(c === q.a ? 'correct' : 'wrong');
+  if (c !== q.a) btns[q.a - 1].classList.add('correct');
+  document.getElementById('ex-next').disabled = false;
+}
+
+function exNext() {
+  if (exIdx < exPool.length - 1) { exIdx++; loadEx(); }
+  else finishExam();
+}
+
+function finishExam() {
+  if (exTimer) { clearInterval(exTimer); exTimer = null; }
+  let ok = 0;
+  exPool.forEach((q, i) => {
+    const key = exId + '-' + q.no;
+    if (exAns[i] === q.a)        { ok++; mastered.add(key); weak.delete(key); }
+    else if (exAns[i] !== null)  { weak.add(key); mastered.delete(key); }
+  });
+  const pct = Math.round(ok / exPool.length * 100);
+  history.push({ name: ei(exId).name, date: new Date().toLocaleDateString('ja-JP'), pct, eid: exId });
+  saveStore();
+  showResult({ pct, ok, total: exPool.length, pool: exPool, ans: exAns, eid: exId });
+}
+
+function retryExam() { startExam(retryEid); }
+
+// ===== RESULT =====
+function showResult({ pct, ok, total, pool, ans, eid }) {
+  const pass = pct >= 70;
+  document.getElementById('r-pct').textContent     = pct + '%';
+  document.getElementById('r-pct').className       = 'r-pct ' + (pass ? 'pass' : 'fail');
+  document.getElementById('r-verdict').textContent = pass ? '合格ライン達成' : 'もう少しで合格';
+  document.getElementById('r-detail').textContent  = `${total}問中 ${ok}問正解　合格ライン目安 70%`;
+
+  const retry = document.getElementById('r-retry');
+  retry.style.display = eid ? '' : 'none';
+  if (eid) retry.className = 'btn pb';
+
+  if (ans) {
+    document.getElementById('r-breakdown').innerHTML = pool.map((q, i) => {
+      const a = ans[i], ok2 = (a === q.a);
+      return `<div class="rb-row">
+        <div class="rb-q">問${q.no}. ${q.q.slice(0, 30)}…</div>
+        <div class="rb-mark ${ok2 ? 'ok' : 'ng'}">${ok2 ? '正解' : '× → ' + q.o[q.a - 1].slice(0, 12)}</div>
+      </div>`;
+    }).join('');
+  } else {
+    document.getElementById('r-breakdown').innerHTML =
+      '<div style="padding:12px;font-size:12px;color:var(--ink3)">詳細は模擬試験モードで確認できます</div>';
+  }
+
+  setHdr('結果');
+  showScreen('s-result');
+  document.querySelector('.bnav').style.display = 'none';
+  updateHome();
+}
+
+// ===== FLASH =====
+function buildFSel() {
+  const exams = EXAMS_INFO.filter(e => e.type === curCat);
+  document.getElementById('ff-exams').innerHTML = exams.map(e =>
+    `<button class="ftag on" data-v="${e.id}" onclick="toggleFTag(this,'ff-exams')">${e.name.replace('予備試験','').replace('国家試験','')}</button>`
+  ).join('');
+}
+
+function startFlash() {
+  const ids      = [...document.querySelectorAll('#ff-exams .ftag.on')].map(b => b.dataset.v);
+  const weakOnly = document.getElementById('ff-weak').checked;
+  let pool = weakOnly
+    ? ALL_Q.filter(q => weak.has(q.eid + '-' + q.no))
+    : ALL_Q.filter(q => ids.includes(q.eid));
+  if (!pool.length) { alert('対象の問題がありません'); return; }
+  flPool = shuf(pool); flIdx = 0;
+  setHdr('フラッシュカード', `全${flPool.length}問`);
+  showScreen('s-flash');
+  loadFl();
+}
+
+function loadFl() {
+  const q = flPool[flIdx];
+  document.getElementById('fl-bar').style.width = Math.round(flIdx / flPool.length * 100) + '%';
+  document.getElementById('fl-cnt').textContent  = `${flIdx + 1} / ${flPool.length}`;
+  document.getElementById('fl-pos').textContent  = `${ei(q.eid).name}　問${q.no}`;
+  document.getElementById('fl-q').textContent    = q.q;
+  document.getElementById('fl-ans').textContent  = `${q.a}. ${q.o[q.a - 1]}`;
+  document.getElementById('fl-exp').textContent  = q.e;
+  document.getElementById('fl-inner').classList.remove('flip');
+}
+
+function flipCard() { document.getElementById('fl-inner').classList.toggle('flip'); }
+
+function flMove(d) {
+  flIdx = Math.max(0, Math.min(flPool.length - 1, flIdx + d));
+  loadFl();
+}
+
+function markCard(ok) {
+  const q   = flPool[flIdx];
+  const key = q.eid + '-' + q.no;
+  if (ok) { mastered.add(key); weak.delete(key); }
+  else    { weak.add(key); mastered.delete(key); }
+  saveStore();
+  updateHome();
+  flMove(1);
+}
+
+// ===== INIT =====
+(async () => {
+  await loadStore();
+  buildExamSel();
+  buildQSel();
+  buildFSel();
+  updateHome();
+  showScreen('s-home');
+})();
+</script>
+</body>
+</html>
