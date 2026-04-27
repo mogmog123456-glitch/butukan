@@ -1782,20 +1782,22 @@ Object.entries(EXAM_DATA).forEach(([eid,qs])=>qs.forEach(q=>ALL_Q.push({...q,eid
 
 // ===== 予想問題集 =====
 let YOSO_Q=[];
+let yosoLoaded=false;
 async function loadYosoData(){
+  if(yosoLoaded) return;
   try{
     const r=await fetch('mondai_data.json');
-    if(!r.ok) return;
+    if(!r.ok){ console.error('mondai_data.json fetch failed:',r.status); return; }
     const data=await r.json();
     ['hissu','jitchi','ippan'].forEach(cat=>{
       (data[cat]||[]).forEach(q=>{
         YOSO_Q.push({...q, eid:'yoso', ycat:cat});
       });
     });
-    // ホームの件数更新
+    yosoLoaded=true;
     const el=document.querySelector('#ctab-yo .ct-sub');
     if(el) el.textContent=YOSO_Q.length+'問';
-  }catch(e){}
+  }catch(e){ console.error('loadYosoData error:',e); }
 }
 
 // ===== STORAGE =====
@@ -2138,13 +2140,20 @@ function qs1t(btn){document.querySelectorAll('#rf-type .ftag').forEach(b=>b.clas
 function qs1y(btn){document.querySelectorAll('#yf-count .ftag').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
 
 async function startYosoQuiz(){
-  if(!YOSO_Q.length) await loadYosoData();
+  if(!yosoLoaded){
+    const btn=document.querySelector('#s-ysel .btn');
+    if(btn){ const orig=btn.textContent; btn.textContent='読み込み中…'; btn.disabled=true;
+      await loadYosoData();
+      btn.textContent=orig; btn.disabled=false; }
+    else await loadYosoData();
+  }
+  if(!YOSO_Q.length){ alert('データの読み込みに失敗しました。通信環境を確認して再度お試しください。'); return; }
   const cats=[...document.querySelectorAll('#yf-cat .ftag.on')].map(b=>b.dataset.v);
   const cnt=[...document.querySelectorAll('#yf-count .ftag.on')][0]?.dataset.v||'20';
   const imgOnly=document.getElementById('yf-imgonly').checked;
   let pool=YOSO_Q.filter(q=>cats.includes(q.ycat));
   if(imgOnly) pool=pool.filter(q=>q.type==='img');
-  if(!pool.length){alert('対象の問題がありません');return;}
+  if(!pool.length){ alert('対象の問題がありません'); return; }
   pool=shuf(pool);
   if(cnt!=='0') pool=pool.slice(0,+cnt);
   launchQuiz(pool,'yoso');
@@ -2845,8 +2854,7 @@ function openPdf(url){window.open(url,'_blank');}
   buildExamSel(); buildQSel(); buildFSel();
   updateHome();
   showScreen('s-home');
-  loadYosoData();
-  loadTextData();
+  await loadYosoData();
 })();
 </script>
 </body>
