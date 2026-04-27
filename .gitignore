@@ -2,6 +2,3 @@
 *.py
 extract_log.txt
 mondai_data_v3.json
-
-# テキスト教科書PDF（問題集以外・容量大）
-text/動物看護師/愛玩動物看護師必携テキスト_動物看護学/

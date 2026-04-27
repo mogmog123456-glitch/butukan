@@ -2137,13 +2137,14 @@ function qs1r(btn){document.querySelectorAll('#rf-count .ftag').forEach(b=>b.cla
 function qs1t(btn){document.querySelectorAll('#rf-type .ftag').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
 function qs1y(btn){document.querySelectorAll('#yf-count .ftag').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
 
-function startYosoQuiz(){
+async function startYosoQuiz(){
+  if(!YOSO_Q.length) await loadYosoData();
   const cats=[...document.querySelectorAll('#yf-cat .ftag.on')].map(b=>b.dataset.v);
   const cnt=[...document.querySelectorAll('#yf-count .ftag.on')][0]?.dataset.v||'20';
   const imgOnly=document.getElementById('yf-imgonly').checked;
   let pool=YOSO_Q.filter(q=>cats.includes(q.ycat));
   if(imgOnly) pool=pool.filter(q=>q.type==='img');
-  if(!pool.length){alert('対象の問題がありません。データ読み込み中の場合は少々お待ちください。');return;}
+  if(!pool.length){alert('対象の問題がありません');return;}
   pool=shuf(pool);
   if(cnt!=='0') pool=pool.slice(0,+cnt);
   launchQuiz(pool,'yoso');
