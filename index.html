@@ -429,6 +429,12 @@ button:active{opacity:.75;}
 .pbdg{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;flex-shrink:0;}
 .pbdg.q{background:var(--sage-l);color:var(--sage);}
 .pbdg.a{background:var(--gold-l);color:var(--gold);}
+/* ── QUESTION IMAGE ── */
+.qz-img{width:100%;border-radius:8px;margin-bottom:10px;display:none;box-shadow:var(--sh);}
+.opt-img{width:100%;padding:14px 16px;background:var(--surface);border:2px solid var(--line);border-radius:var(--r);margin-bottom:8px;font-size:16px;font-weight:700;text-align:center;color:var(--ink2);cursor:pointer;}
+.opt-img:active{opacity:.7;}
+.opt-img.correct{border-color:var(--sage);background:var(--sage-l);color:var(--sage);}
+.opt-img.wrong{border-color:var(--coral);background:var(--coral-l);color:var(--coral);}
 /* ── TEXT READER ── */
 .tr-search-wrap{position:relative;margin-bottom:14px;}
 .tr-search{width:100%;padding:10px 38px 10px 14px;border-radius:var(--r);border:1.5px solid var(--line);background:var(--surface);font-size:14px;font-family:inherit;outline:none;}
@@ -694,10 +700,7 @@ button:active{opacity:.75;}
   </div>
   <div class="q-card">
     <div class="q-tag" id="qz-tag"></div>
-    <div id="qz-img-note" style="display:none" class="pdf-note">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:16px;flex-shrink:0"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-      <span>この問題には図・画像があります。下のボタンでPDFを開いて確認してください。</span>
-    </div>
+    <img class="qz-img" id="qz-img" alt="問題">
     <div class="q-text" id="qz-text"></div>
     <div class="opts" id="qz-opts"></div>
     <div class="exp-box" id="qz-exp" style="display:none">
@@ -2228,28 +2231,35 @@ function loadQz(){
     document.getElementById('qz-tag').textContent=`${ei(q.eid).name}　問${q.no}　${subName}`;
   }
   document.getElementById('qz-tag').className='q-tag '+tc;
-  document.getElementById('qz-text').textContent=q.q;
   document.getElementById('qz-exp').style.display='none';
   document.getElementById('qz-next').disabled=true;
-  // 画像問題の注記
-  const imgNote=document.getElementById('qz-img-note');
-  if(imgNote){
-    const show=isYoso && q.type==='img';
-    imgNote.style.display=show?'flex':'none';
-    if(show && q.src){
-      imgNote.onclick=()=>window.open(q.src.qUrl,'_blank');
-      imgNote.style.cursor='pointer';
-    }
+  // 画像表示
+  const imgEl=document.getElementById('qz-img');
+  const txtEl=document.getElementById('qz-text');
+  const IMG_ROOT='https://mogmog123456-glitch.github.io/butukan/';
+  if(isYoso && q.src && q.src.qImg){
+    imgEl.src=IMG_ROOT+q.src.qImg;
+    imgEl.style.display='block';
+    txtEl.style.display='none';
+    // 画像モード: ①〜⑤ ボタン（大きめ）
+    document.getElementById('qz-opts').innerHTML=
+      '①②③④⑤'.split('').slice(0,q.o.length).map((c,i)=>
+        `<button class="opt-img" onclick="ansQz(${i+1})">${c}</button>`
+      ).join('');
+  } else {
+    imgEl.style.display='none';
+    txtEl.style.display='';
+    txtEl.textContent=q.q;
+    document.getElementById('qz-opts').innerHTML=q.o.map((o,i)=>
+      `<button class="opt" onclick="ansQz(${i+1})">${i+1}. ${o}</button>`
+    ).join('');
   }
-  document.getElementById('qz-opts').innerHTML=q.o.map((o,i)=>
-    `<button class="opt" onclick="ansQz(${i+1})">${i+1}. ${o}</button>`
-  ).join('');
 }
 
 function ansQz(c){
   const q=qzPool[qzIdx], key=q.eid+'-'+q.no;
-  document.querySelectorAll('#qz-opts .opt').forEach(b=>b.disabled=true);
-  const btns=document.querySelectorAll('#qz-opts .opt');
+  document.querySelectorAll('#qz-opts .opt, #qz-opts .opt-img').forEach(b=>b.disabled=true);
+  const btns=document.querySelectorAll('#qz-opts .opt, #qz-opts .opt-img');
   const correct=c===q.a;
   recordAnswer(q,correct);
   if(correct){
