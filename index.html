@@ -347,6 +347,9 @@ button:active{opacity:.75;}
 .fl-hint{font-size:11px;color:var(--ink3);margin-top:12px;}
 .fl-ans{font-size:16px;font-weight:700;color:var(--sage);margin-bottom:8px;}
 .fl-exp{font-size:12px;color:var(--ink2);line-height:1.7;}
+.fl-img{width:100%;border-radius:8px;margin-bottom:8px;display:none;}
+.fl-opts-list{margin-top:10px;text-align:left;width:100%;}
+.fl-opt-item{font-size:12px;color:var(--ink2);padding:2px 0;line-height:1.6;}
 .fl-nav{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:10px;}
 .fl-pos{font-size:12px;color:var(--ink3);min-width:110px;text-align:center;}
 .fl-marks{display:flex;gap:8px;justify-content:center;}
@@ -806,7 +809,9 @@ button:active{opacity:.75;}
   <div class="fl-perspective" onclick="flipCard()">
     <div class="fl-inner" id="fl-inner" style="min-height:190px;position:relative;">
       <div class="fl-face front" style="position:relative;">
+        <img class="fl-img" id="fl-img" alt="問題">
         <div class="fl-q-text" id="fl-q"></div>
+        <div class="fl-opts-list" id="fl-opts"></div>
         <div class="fl-hint">タップして答えを確認</div>
       </div>
       <div class="fl-face back" style="min-height:190px;">
@@ -2480,9 +2485,31 @@ function loadFl(){
   document.getElementById('fl-cnt').textContent=`${flIdx+1} / ${flPool.length}`;
   const sub=SUBJECT_NAMES[getTag(q)]||'';
   document.getElementById('fl-pos').textContent=`${ei(q.eid).name}　問${q.no}　[${sub}]`;
-  document.getElementById('fl-q').textContent=q.q;
-  document.getElementById('fl-ans').textContent=`${q.a}. ${q.o[q.a-1]}`;
-  document.getElementById('fl-exp').textContent=q.e;
+
+  const circles=['①','②','③','④','⑤'];
+  const isImg=q.eid==='yoso' && q.src && q.src.qImg;
+  const IMG_ROOT='https://mogmog123456-glitch.github.io/butukan/';
+  const imgEl=document.getElementById('fl-img');
+  const qEl=document.getElementById('fl-q');
+  const optsEl=document.getElementById('fl-opts');
+
+  if(isImg){
+    imgEl.src=IMG_ROOT+q.src.qImg;
+    imgEl.style.display='block';
+    qEl.style.display='none';
+    optsEl.innerHTML='';
+  } else {
+    imgEl.style.display='none';
+    qEl.style.display='';
+    qEl.textContent=q.q;
+    optsEl.innerHTML=q.o.map((o,i)=>
+      `<div class="fl-opt-item">${i+1}. ${o}</div>`
+    ).join('');
+  }
+
+  const ansCircle=circles[q.a-1]||String(q.a);
+  document.getElementById('fl-ans').textContent=`正解：${ansCircle}　${q.o[q.a-1]}`;
+  document.getElementById('fl-exp').textContent=q.e||'';
   document.getElementById('fl-inner').classList.remove('flip');
 }
 
