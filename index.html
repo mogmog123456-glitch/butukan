@@ -435,6 +435,11 @@ button:active{opacity:.75;}
 .opt-img:active{opacity:.7;}
 .opt-img.correct{border-color:var(--sage);background:var(--sage-l);color:var(--sage);}
 .opt-img.wrong{border-color:var(--coral);background:var(--coral-l);color:var(--coral);}
+/* ── ANSWER INDICATOR ── */
+.ans-ind{display:none;border-radius:var(--r);padding:14px 16px;margin:10px 0 4px;font-size:18px;font-weight:700;text-align:center;letter-spacing:.05em;}
+.ans-ind.ok{background:var(--sage-l);color:var(--sage);border:2px solid var(--sage);}
+.ans-ind.ng{background:var(--coral-l);color:var(--coral);border:2px solid var(--coral);}
+.ans-ind-sub{font-size:13px;font-weight:400;margin-top:4px;}
 /* ── TEXT READER ── */
 .tr-search-wrap{position:relative;margin-bottom:14px;}
 .tr-search{width:100%;padding:10px 38px 10px 14px;border-radius:var(--r);border:1.5px solid var(--line);background:var(--surface);font-size:14px;font-family:inherit;outline:none;}
@@ -703,6 +708,7 @@ button:active{opacity:.75;}
     <img class="qz-img" id="qz-img" alt="問題">
     <div class="q-text" id="qz-text"></div>
     <div class="opts" id="qz-opts"></div>
+    <div class="ans-ind" id="qz-ans-ind"></div>
     <div class="exp-box" id="qz-exp" style="display:none">
       <span class="exp-label">解 説</span>
       <span id="qz-expt"></span>
@@ -2233,6 +2239,8 @@ function loadQz(){
   document.getElementById('qz-tag').className='q-tag '+tc;
   document.getElementById('qz-exp').style.display='none';
   document.getElementById('qz-next').disabled=true;
+  const ansInd=document.getElementById('qz-ans-ind');
+  ansInd.className='ans-ind'; ansInd.style.display='none'; ansInd.innerHTML='';
   // 画像表示
   const imgEl=document.getElementById('qz-img');
   const txtEl=document.getElementById('qz-text');
@@ -2262,6 +2270,7 @@ function ansQz(c){
   const btns=document.querySelectorAll('#qz-opts .opt, #qz-opts .opt-img');
   const correct=c===q.a;
   recordAnswer(q,correct);
+  const circles=['①','②','③','④','⑤'];
   if(correct){
     btns[c-1].classList.add('correct'); qzOk++;
     if(weak.has(key)){weak.delete(key);}
@@ -2269,6 +2278,19 @@ function ansQz(c){
   } else {
     btns[c-1].classList.add('wrong'); btns[q.a-1].classList.add('correct'); qzNg++;
     weak.add(key);
+  }
+  // 正解インジケーター（画像モードのみ）
+  if(q.src && q.src.qImg){
+    const ansInd=document.getElementById('qz-ans-ind');
+    const ansText=q.o[q.a-1]||'';
+    if(correct){
+      ansInd.className='ans-ind ok';
+      ansInd.innerHTML=`✓ 正解！　答えは ${circles[q.a-1]}<div class="ans-ind-sub">${ansText}</div>`;
+    } else {
+      ansInd.className='ans-ind ng';
+      ansInd.innerHTML=`✗ 不正解　正解は ${circles[q.a-1]}<div class="ans-ind-sub">${ansText}</div>`;
+    }
+    ansInd.style.display='block';
   }
   saveStore();
   checkLevelUp();
