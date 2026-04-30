@@ -1824,9 +1824,9 @@ let lastPlayDate = ''; // 最終プレイ日
 
 async function loadStore() {
   try {
-    const r = await window.storage.get(STORE_KEY);
+    const r = localStorage.getItem(STORE_KEY);
     if (r) {
-      const d = JSON.parse(r.value);
+      const d = JSON.parse(r);
       weak         = new Set(d.weak     || []);
       mastered     = new Set(d.mastered || []);
       history      = d.history || [];
@@ -1843,7 +1843,7 @@ async function loadStore() {
 
 async function saveStore() {
   try {
-    await window.storage.set(STORE_KEY, JSON.stringify({
+    localStorage.setItem(STORE_KEY, JSON.stringify({
       weak:[...weak], mastered:[...mastered], history, subjectStats,
       totalCorrect, streak, lastPlayDate
     }));
