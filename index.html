@@ -2396,7 +2396,7 @@ function ansEx(c){
   btns[c-1].classList.add(c===q.a?'correct':'wrong');
   if(c!==q.a) btns[q.a-1].classList.add('correct');
   document.getElementById('ex-next').disabled=false;
-  checkLevelUp();
+  saveStore(); checkLevelUp();
 }
 
 function exNext(){
