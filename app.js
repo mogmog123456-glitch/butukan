@@ -579,8 +579,7 @@ function startQuiz(){
   pool=applyOptionFilters(pool,'qf-weak','qf-bm');
   pool=filterBySubject(pool);
   if(!pool.length){alert('対象の問題がありません');return;}
-  pool=shuf(pool);
-  if(cnt!=='0') pool=pool.slice(0,+cnt);
+  pool=weightedPick(pool,+cnt);
   launchQuiz(pool,'quiz');
 }
 
@@ -598,9 +597,24 @@ function startRandom(){
   pool=applyOptionFilters(pool,'rf-weak','rf-bm');
   pool=filterBySubject(pool);
   if(!pool.length){alert('対象の問題がありません');return;}
-  pool=shuf(pool);
-  if(cnt!=='0') pool=pool.slice(0,+cnt);
+  pool=weightedPick(pool,+cnt);
   launchQuiz(pool,'random');
+}
+
+// 重み付き抽選: 未出題・要復習の問題を出やすく、正解が続いている問題を出にくくする
+// （完全な一巡方式ではないので、間違えた問題は早めに戻ってくる）
+const PICK_W={unseen:4,due:4,seen:1};
+function pickWeight(q){
+  const k=qKey(q), s=qstat[k];
+  if(!s) return PICK_W.unseen;
+  if(weak.has(k)||(s.due&&s.due<=todayStr())) return PICK_W.due;
+  return PICK_W.seen;
+}
+// 重みに比例した確率で並べ替える（Efraimidis-Spirakis 法）。n 指定で先頭 n 問
+function weightedPick(pool,n){
+  const out=pool.map(q=>({q,key:Math.pow(Math.random(),1/pickWeight(q))}))
+    .sort((a,b)=>b.key-a.key).map(x=>x.q);
+  return n>0?out.slice(0,n):out;
 }
 
 // ===== 今日の復習 =====
